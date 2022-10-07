@@ -5,8 +5,9 @@ using UnityEngine.AI;
 
 public class EnemyBehaviour : MonoBehaviour
 {
-    public Vector3 targetPosition;
-    public float waitTime;
+    public Vector3 targetDestination;
+    public float restingTime;
+    public float playerDetectionRange;
     private NavMeshAgent agent;
     public Transform player;
     public Transform[] pointsOfInterest;
@@ -20,11 +21,20 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void Update()
     {
-        targetPosition = Navigate();
+        targetDestination = ChangeDestination();
     }
 
-    private Vector3 Navigate()
+    private Vector3 ChangeDestination()
     {
+        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+
+        if (distanceToPlayer < playerDetectionRange) // Paths to player if nearby
+        {
+            idle = false;
+            resting = false;
+            agent.SetDestination(player.position);
+        }
+
         if (idle && !resting) // Paths to a random point of interest
         {
             idle = false;
@@ -41,7 +51,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     IEnumerator Rest()
     {
-        yield return new WaitForSeconds(waitTime);
+        yield return new WaitForSeconds(restingTime);
         idle = true;
         resting = false;
     }
