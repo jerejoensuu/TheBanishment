@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Code.Environment
 {
-    public class DoorController : MonoBehaviour
+    public class DoorController : MonoBehaviour, IInteractable
     {
         [SerializeField] float speed = 1;
         private bool _isDoorOpen = false;
@@ -57,6 +57,21 @@ namespace Code.Environment
             Transform hingeTransform = transform.GetChild(0);
             Gizmos.color = Color.red;
             Gizmos.DrawRay(hingeTransform.position, Vector3.up * 3);
+        }
+
+        public bool IsCurrentlyInteractable()
+        {
+            return true;
+        }
+
+        public string LookAtText()
+        {
+            return _isDoorOpen ? "Close door" : "Open door";
+        }
+
+        public void Interact()
+        {
+            ToggleDoor();
         }
     }
 }
