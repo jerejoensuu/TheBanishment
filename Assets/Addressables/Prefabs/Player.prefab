@@ -86,7 +86,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60c32492a90545b7bb19d44496da65a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxInteractionDistance: 3
+  maxInteractionDistance: 4
 --- !u!143 &8166539168465542801
 CharacterController:
   m_ObjectHideFlags: 0

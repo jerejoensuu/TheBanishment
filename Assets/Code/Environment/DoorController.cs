@@ -10,24 +10,22 @@ namespace Code.Environment
         [SerializeField] private GameObject hinge;
         [SerializeField] private float speed = 1;
         private bool _isDoorOpen;
+        private bool _stateChangeInProgress;
 
         public void ToggleDoor()
         {
-            StopCoroutine(ChangeDoorState());
             StartCoroutine(ChangeDoorState());
         }
 
         public void OpenDoor()
         {
             if (_isDoorOpen) return;
-            StopCoroutine(ChangeDoorState());
             StartCoroutine(ChangeDoorState());
         }
 
         public void CloseDoor()
         {
             if (!_isDoorOpen) return;
-            StopCoroutine(ChangeDoorState());
             StartCoroutine(ChangeDoorState());
         }
 
@@ -36,8 +34,8 @@ namespace Code.Environment
             Transform hingeTransform = hinge.transform;
             float targetAngle = _isDoorOpen ? 0 : GetDoorOpeningDirection();
 
-            bool stateChangeComplete = false;
-            while (!stateChangeComplete && Application.isPlaying)
+            _stateChangeInProgress = true;
+            while (_stateChangeInProgress && Application.isPlaying)
             {
                 Vector3 hingeEulerAngles = hingeTransform.eulerAngles;
                 hingeEulerAngles = new Vector3(0,
@@ -45,7 +43,7 @@ namespace Code.Environment
                     0);
                 hingeTransform.eulerAngles = hingeEulerAngles;
                 yield return new WaitForSeconds(Time.deltaTime);
-                stateChangeComplete = Math.Abs(targetAngle - hingeEulerAngles.y) < 0.5f;
+                _stateChangeInProgress = Math.Abs(targetAngle - hingeEulerAngles.y) > 0.5f;
             }
 
             hingeTransform.eulerAngles = new Vector3(0, targetAngle, 0);
@@ -71,7 +69,7 @@ namespace Code.Environment
 
         public bool IsCurrentlyInteractable()
         {
-            return true;
+            return !_stateChangeInProgress;
         }
 
         public string LookAtText()

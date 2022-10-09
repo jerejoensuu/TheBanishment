@@ -19,6 +19,7 @@ namespace Code.Player
         private void Update()
         {
             interaction.FireInspectionRay();
+            interaction.ViewedItemHover();
         }
 
         

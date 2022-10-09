@@ -37,12 +37,11 @@ namespace Code.Player
         {
             _player.movement.running = context.performed;
         }
-        
+
         private void Interact(InputAction.CallbackContext context)
         {
             if (context.performed)
             {
-                Debug.Log("Click");
                 _player.interaction.InteractWithObject();
             }
         }
