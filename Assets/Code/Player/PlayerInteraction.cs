@@ -16,6 +16,8 @@ namespace Code.Player
         private void Awake()
         {
             _player = GetComponent<PlayerController>();
+
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
         public void FireInspectionRay()
