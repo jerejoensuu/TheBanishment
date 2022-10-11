@@ -2,16 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Code.Player;
 
 public class EnemyBehaviour : MonoBehaviour
 {
     public Vector3 targetDestination;
     public float restingTime;
     public float playerDetectionRange;
+    public float listeningRange;
     public float movementSpeed;
     public float chaseSpeed;
     private NavMeshAgent agent;
     public Transform player;
+    public Vector3 playerLastKnownLocation;
+    public NoiseMaker noiseMaker;
     public Transform[] pointsOfInterest;
     private bool idle = true;
     private bool resting = false;
@@ -30,6 +34,16 @@ public class EnemyBehaviour : MonoBehaviour
     private Vector3 ChangeDestination()
     {
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+
+        if (noiseMaker.noiseMeter >= 50)
+        {
+            playerLastKnownLocation = player.position;
+
+            idle = false;
+            resting = false;
+            agent.speed = movementSpeed*1.5f;
+            agent.SetDestination(playerLastKnownLocation);
+        }
 
         if (distanceToPlayer < playerDetectionRange) // Paths to player if nearby
         {

@@ -1198,9 +1198,11 @@ MonoBehaviour:
   targetDestination: {x: 0, y: 0, z: 0}
   restingTime: 2
   playerDetectionRange: 6
+  listeningRange: 20
   movementSpeed: 3
-  chaseSpeed: 5
+  chaseSpeed: 8
   player: {fileID: 1466183017}
+  noiseMaker: {fileID: 8166539169800121133}
   pointsOfInterest:
   - {fileID: 407422314}
   - {fileID: 49469267}
@@ -1457,3 +1459,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 427c25991c1f37041954b1cfa967ad12, type: 3}
+--- !u!114 &8166539169800121133 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6595551177337338761, guid: 427c25991c1f37041954b1cfa967ad12, type: 3}
+  m_PrefabInstance: {fileID: 8166539169800121132}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c143e86f6dd2094abc9f9804329c498, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
