@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Code.Player;
 
 public class EnemyBehaviour : MonoBehaviour
 {
@@ -22,6 +23,8 @@ public class EnemyBehaviour : MonoBehaviour
 
     [Header("Objects")]
     public Transform player;
+    public Vector3 playerLastKnownLocation;
+    public NoiseMaker noiseMaker;
     public Transform[] pointsOfInterest;
     private NavMeshAgent agent;
 
@@ -89,7 +92,17 @@ public class EnemyBehaviour : MonoBehaviour
 
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
-        if (distanceToPlayer < idleSightRange) // Paths to player if nearby
+        if (noiseMaker.noiseMeter >= 50)
+        {
+            playerLastKnownLocation = player.position;
+
+            idle = false;
+            resting = false;
+            agent.speed = movementSpeed*1.5f;
+            agent.SetDestination(playerLastKnownLocation);
+        }
+
+        if (distanceToPlayer < playerDetectionRange) // Paths to player if nearby
         {
             idle = false;
             resting = false;
