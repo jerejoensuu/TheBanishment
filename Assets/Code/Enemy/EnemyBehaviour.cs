@@ -8,14 +8,16 @@ public class EnemyBehaviour : MonoBehaviour
 {
     private int state; // 0 idle, 1 alert, 2 chasing, 3 attacking
 
-
     [Header("Movement")]
+    public Vector3 lastKnownPlayerPosition;
     [Tooltip("Navigating towards this position")] public Vector3 targetDestination;
     [Tooltip("Time spent idle after reaching a destination")] public float waitTime;
     public float idleMoveSpeed;
+    public float alertMoveSpeed;
     public float chaseMoveSpeed;
 
     [Header("Detection")]
+    public float aggro = 0f;
     [Tooltip("The width of the sight cone. 0 = 180 degrees, 0.5 = 90 degrees")] public float detectionArea;
     public float idleSightRange;
     public float alertSightRange;
@@ -23,7 +25,6 @@ public class EnemyBehaviour : MonoBehaviour
 
     [Header("Objects")]
     public Transform player;
-    public Vector3 playerLastKnownLocation;
     public NoiseMaker noiseMaker;
     public Transform[] pointsOfInterest;
     private NavMeshAgent agent;
@@ -36,25 +37,58 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void Update()
     {
+        if (aggro > 0f)
+        {
+            aggro -= Time.deltaTime * 5;
+        }
+
         if (SightCheck())
         {
-            SetState(2);
+            aggro = 100f;
+            Debug.Log("In sight");
+            lastKnownPlayerPosition = player.position;
+            targetDestination = lastKnownPlayerPosition;
         }
-        else
+        else if (noiseMaker.noiseMeter >= 50 && state != 2)
         {
-            SetState(0);
+            aggro = noiseMaker.noiseMeter;
+            Debug.Log("Noise");
+            lastKnownPlayerPosition = player.position;
+            targetDestination = lastKnownPlayerPosition;
         }
-        //else if (SoundCheck())
-        //{
-        //    SetState(1);
-        //}
+        else if (agent.remainingDistance <= 1f && state != 2)
+        {
+            targetDestination = pointsOfInterest[Random.Range(0, pointsOfInterest.Length)].position;
+        }
 
-        //targetDestination = ChangeDestination();
+        SetState(aggro);
+
+        agent.SetDestination(targetDestination);
     }
 
-    private void SetState(int value)
+    private void SetState(float value)
     {
-        state = value;
+        if (value > 80f) { state = 2; }
+        else if (value > 40f) { state = 1; }
+        else { state = 0; }
+
+        switch (state)
+        {
+            case 0:
+            agent.speed = idleMoveSpeed;
+            break;
+
+            case 1:
+            agent.speed = alertMoveSpeed;
+            break;
+
+            case 2:
+            agent.speed = chaseMoveSpeed;
+            break;
+
+            case 3:
+            break;
+        }
     }
 
     private bool SightCheck()
@@ -76,60 +110,10 @@ public class EnemyBehaviour : MonoBehaviour
                 if (hit.transform.gameObject.tag == "Player") // Ray hits player
                 {
                     playerDetected = true;
-                    Debug.Log(playerDetected);
-                    Debug.DrawRay(transform.position, (player.position - transform.position) * hit.distance, Color.yellow);
                 }
             }
 
         }
         return playerDetected;
     }
-
-    /*
-    private Vector3 ChangeDestination()
-    {
-
-
-        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-
-        if (noiseMaker.noiseMeter >= 50)
-        {
-            playerLastKnownLocation = player.position;
-
-            idle = false;
-            resting = false;
-            agent.speed = movementSpeed*1.5f;
-            agent.SetDestination(playerLastKnownLocation);
-        }
-
-        if (distanceToPlayer < playerDetectionRange) // Paths to player if nearby
-        {
-            idle = false;
-            resting = false;
-            agent.speed = chaseMoveSpeed;
-            agent.SetDestination(player.position);
-        }
-
-        if (idle && !resting) // Paths to a random point of interest
-        {
-            idle = false;
-            agent.speed = idleMoveSpeed;
-            agent.SetDestination(pointsOfInterest[Random.Range(0, pointsOfInterest.Length)].position);
-        }
-        else if (agent.remainingDistance < 0.5f && !resting) // Has reached a destination, waits there for a while
-        {
-            resting = true;
-            StartCoroutine(Rest());
-        }
-
-        return agent.destination;
-    }
-
-    IEnumerator Rest()
-    {
-        yield return new WaitForSeconds(waitTime);
-        idle = true;
-        resting = false;
-    }
-    */
 }

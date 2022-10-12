@@ -1195,12 +1195,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dee71ce86fb2eac4885e3a1262111e13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerLastKnownLocation: {x: 0, y: 0, z: 0}
   targetDestination: {x: 0, y: 0, z: 0}
-  restingTime: 2
-  playerDetectionRange: 6
-  listeningRange: 20
-  movementSpeed: 3
-  chaseSpeed: 8
+  waitTime: 1
+  idleMoveSpeed: 3
+  alertMoveSpeed: 4.5
+  chaseMoveSpeed: 6
+  detectionArea: 0.5
+  idleSightRange: 6
+  alertSightRange: 12
+  chaseSightRange: 24
   player: {fileID: 1466183017}
   noiseMaker: {fileID: 8166539169800121133}
   pointsOfInterest:
