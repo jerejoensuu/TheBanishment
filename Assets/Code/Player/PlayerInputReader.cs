@@ -24,6 +24,8 @@ namespace Code.Player
             _inputs.Player.Move.canceled += ReadMovement;
             // _inputs.Player.Run.performed += ReadRun;
             // _inputs.Player.Run.canceled += ReadRun;
+            _inputs.Player.Fire.performed += Interact;
+            _inputs.Player.Fire.canceled += Interact;
         }
 
         private void ReadMovement(InputAction.CallbackContext context)
@@ -34,6 +36,14 @@ namespace Code.Player
         private void ReadRun(InputAction.CallbackContext context)
         {
             _player.movement.running = context.performed;
+        }
+
+        private void Interact(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+            {
+                _player.interaction.InteractWithObject();
+            }
         }
     }
 }
