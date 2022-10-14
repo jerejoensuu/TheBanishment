@@ -6,73 +6,89 @@ using Code.Player;
 
 public class EnemyBehaviour : MonoBehaviour
 {
-    private int state; // 0 idle, 1 alert, 2 chasing, 3 attacking
+    public int state; // 0 oblivious, 1 alert, 2 chasing
+    private bool resting = false;
 
     [Header("Movement")]
     public Vector3 lastKnownPlayerPosition;
     [Tooltip("Navigating towards this position")] public Vector3 targetDestination;
-    [Tooltip("Time spent idle after reaching a destination")] public float waitTime;
+    [Tooltip("Time spent idle after reaching a destination")] public float restTime;
     public float idleMoveSpeed;
     public float alertMoveSpeed;
     public float chaseMoveSpeed;
 
     [Header("Detection")]
-    public float aggro = 0f;
-    [Tooltip("The width of the sight cone. 0 = 180 degrees, 0.5 = 90 degrees")] public float detectionArea;
-    public float idleSightRange;
-    public float alertSightRange;
-    public float chaseSightRange;
+    [Tooltip("The width of the sight area. 0 = 180 degrees, 0.5 = 90 degrees")] public float detectionArea;
+    public float sightRange;
+    [Tooltip("Remains in alert state for n seconds after hearing noise")] public float alertDuration;
+    [Tooltip("Remains in chase state for n seconds after losing sight of player")] public float chaseDuration;
+    private float alertTimeElapsed;
+    private float chaseTimeElapsed;
 
     [Header("Objects")]
     public Transform player;
-    public NoiseMaker noiseMaker;
     public Transform[] pointsOfInterest;
     private NavMeshAgent agent;
+    private NoiseMaker noiseMaker;
 
     private void Start()
-    {
+    { 
+        noiseMaker = player.GetComponentInChildren<NoiseMaker>();
         agent = GetComponent<NavMeshAgent>();
-        agent.speed = idleMoveSpeed;
+
+        alertTimeElapsed = alertDuration;
+        chaseTimeElapsed = chaseDuration;
+       
+        SetPath(pointsOfInterest[0].position);
     }
 
     private void Update()
     {
-        if (aggro > 0f)
+        if (chaseTimeElapsed < chaseDuration)
         {
-            aggro -= Time.deltaTime * 5;
+            chaseTimeElapsed += Time.deltaTime;
+            state = 2;
+        }
+        else if (alertTimeElapsed < alertDuration)
+        {
+            alertTimeElapsed += Time.deltaTime;
+            state = 1;
+        }
+        else
+        {
+            state = 0;
         }
 
         if (SightCheck())
         {
-            aggro = 100f;
-            Debug.Log("In sight");
-            lastKnownPlayerPosition = player.position;
-            targetDestination = lastKnownPlayerPosition;
+            state = 2;
+            chaseTimeElapsed = 0f;
+            SetPath(player.position);
         }
-        else if (noiseMaker.noiseMeter >= 50 && state != 2)
+        else if (noiseMaker.noiseMeter >= 40f)
         {
-            aggro = noiseMaker.noiseMeter;
-            Debug.Log("Noise");
-            lastKnownPlayerPosition = player.position;
-            targetDestination = lastKnownPlayerPosition;
-        }
-        else if (agent.remainingDistance <= 1f && state != 2)
-        {
-            targetDestination = pointsOfInterest[Random.Range(0, pointsOfInterest.Length)].position;
+            state = 1;
+            alertTimeElapsed = 0f;
+            noiseMaker.noiseMeter = 30f;
+            lastKnownPlayerPosition = noiseMaker.noisePosition;
+            SetPath(lastKnownPlayerPosition);
         }
 
-        SetState(aggro);
+        if (agent.hasPath && agent.remainingDistance <= 2f)
+        {
+            TargetReached();
+        }
 
-        agent.SetDestination(targetDestination);
+        SetSpeed();
     }
 
-    private void SetState(float value)
+    private void SetSpeed()
     {
-        if (value > 80f) { state = 2; }
-        else if (value > 40f) { state = 1; }
-        else { state = 0; }
-
-        switch (state)
+        if (resting)
+        {
+            agent.speed = 0f;
+        }
+        else switch (state)
         {
             case 0:
             agent.speed = idleMoveSpeed;
@@ -85,24 +101,59 @@ public class EnemyBehaviour : MonoBehaviour
             case 2:
             agent.speed = chaseMoveSpeed;
             break;
-
-            case 3:
-            break;
         }
+    }
+
+    private void TargetReached()
+    {
+        agent.ResetPath();
+
+        switch (state)
+            {
+                case 0: // Path to random point of interest if no input from player
+                SetPath(pointsOfInterest[Random.Range(0, pointsOfInterest.Length)].position);
+                StartCoroutine(Rest());
+                break;
+
+                case 1: // Path to nearest point of interest after investigating a noise
+                float shortestDistance = Vector3.Distance(pointsOfInterest[0].position, transform.position);
+                Vector3 nearestPoint = pointsOfInterest[0].position;
+
+                for (int i = 1; i < pointsOfInterest.Length; i++)
+                {
+                    if (Vector3.Distance(pointsOfInterest[i].position, transform.position) < shortestDistance)
+                    {
+                        nearestPoint = pointsOfInterest[i].position;
+                    }
+                }
+
+                SetPath(nearestPoint);
+                StartCoroutine(Rest());
+                break;
+
+                case 2:
+                Debug.Log("Enemy attacks");
+                break;
+            }
+    }
+
+    private void SetPath(Vector3 target)
+    {
+        targetDestination = target;
+        agent.SetDestination(targetDestination);
     }
 
     private bool SightCheck()
     {
         bool playerDetected = false;
-
         Vector3 dir = Vector3.Normalize(player.position - transform.position);
         float dot = Vector3.Dot(dir, transform.forward);
 
         if (dot > detectionArea) // Player is inside detection area (front of enemy)
         {
-            float rayLength = idleSightRange;
-            if (state == 1) { rayLength = alertSightRange; }
-            else if (state == 2) { rayLength = chaseSightRange; }
+            float rayLength = sightRange;
+            if (state == 1) { rayLength = sightRange * 2; }
+            else if (state == 2) { rayLength = sightRange * 10; }
 
             RaycastHit hit;
             if (Physics.Raycast(transform.position, (player.position - transform.position), out hit, rayLength)) // Raycast towards player to see if anything's blocking vision
@@ -115,5 +166,19 @@ public class EnemyBehaviour : MonoBehaviour
 
         }
         return playerDetected;
+    }
+
+    IEnumerator Rest()
+    {
+        resting = true;
+        yield return new WaitForSeconds(restTime);
+
+        if (state > 0)
+        {
+            resting = false;
+            yield break;
+        }
+
+        resting = false;
     }
 }

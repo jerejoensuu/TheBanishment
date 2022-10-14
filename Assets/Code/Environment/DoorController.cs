@@ -17,10 +17,10 @@ namespace Code.Environment
             StartCoroutine(ChangeDoorState());
         }
 
-        public void OpenDoor()
+        public void OpenDoor(Transform opener = null)
         {
             if (_isDoorOpen) return;
-            StartCoroutine(ChangeDoorState());
+            StartCoroutine(ChangeDoorState(opener));
         }
 
         public void CloseDoor()
@@ -29,7 +29,7 @@ namespace Code.Environment
             StartCoroutine(ChangeDoorState());
         }
 
-        private IEnumerator ChangeDoorState()
+        private IEnumerator ChangeDoorState(Transform opener = null)
         {
             Transform hingeTransform = hinge.transform;
             float targetAngle = _isDoorOpen ? 0 : GetDoorOpeningDirection();
@@ -55,6 +55,9 @@ namespace Code.Environment
                 if (!Application.isPlaying) return 90;
 
                 Vector3 playerPosition = FindObjectOfType<PlayerController>().transform.position;
+
+                if (opener != null) { playerPosition = opener.position; }
+                
                 float direction = Vector3.Dot(hingeTransform.forward, hingeTransform.position - playerPosition);
                 return Math.Sign(direction) == 1 ? 90 : -90;
             }
@@ -80,6 +83,14 @@ namespace Code.Environment
         public void Interact()
         {
             ToggleDoor();
+        }
+
+        public void OnTriggerEnter(Collider col)
+        {
+            if (!_isDoorOpen && col.tag == "Enemy")
+            {
+                OpenDoor(col.transform);
+            }
         }
     }
 }

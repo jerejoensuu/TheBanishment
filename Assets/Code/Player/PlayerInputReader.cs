@@ -22,8 +22,8 @@ namespace Code.Player
 
             _inputs.Player.Move.performed += ReadMovement;
             _inputs.Player.Move.canceled += ReadMovement;
-            // _inputs.Player.Run.performed += ReadRun;
-            // _inputs.Player.Run.canceled += ReadRun;
+            _inputs.Player.Run.performed += ReadRun;
+            _inputs.Player.Run.canceled += ReadRun;
             _inputs.Player.Fire.performed += Interact;
             _inputs.Player.Fire.canceled += Interact;
         }

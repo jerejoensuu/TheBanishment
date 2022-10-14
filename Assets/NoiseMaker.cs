@@ -19,6 +19,7 @@ namespace Code.Player
 
         public bool isMoving = false;
         private Vector3 lastPosition;
+        public Vector3 noisePosition;
 
         void Start ()
         {
@@ -30,7 +31,10 @@ namespace Code.Player
             if (transform.position != lastPosition)
             {
                 isMoving = true;
-            } else {
+                noisePosition = transform.position;
+            }
+            else
+            {
                 isMoving = false;
             }
 
@@ -52,16 +56,26 @@ namespace Code.Player
             {
                 if (noiseMeter < 100)
                 {
-                    noiseMeter += noisePerSecond/10;
-                } else if (noiseMeter + noisePerSecond/10 > 100)
+                    int multiplier = 1;
+                    if (transform.parent.GetComponent<FpsMovement>().running)
+                    {
+                        multiplier = 5;
+                    }
+
+                    noiseMeter += (noisePerSecond * multiplier)/10;
+                }
+                else if (noiseMeter + noisePerSecond/10 > 100)
                 {
                     noiseMeter = 100;
                 }
-            } else if (!isMoving) {
+            }
+            else if (!isMoving)
+            {
                 if (noiseMeter > 0)
                 {
                     noiseMeter -= noiseDecay/10;
-                } else if (noiseMeter - noiseDecay/10 < 0)
+                }
+                else if (noiseMeter - noiseDecay/10 < 0)
                 {
                     noiseMeter = 0;
                 }
