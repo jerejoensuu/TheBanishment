@@ -5,7 +5,8 @@ namespace Code.Player
     [RequireComponent(typeof(CharacterController))]
     public class FpsMovement : MonoBehaviour
     {
-        [SerializeField] private Camera headCam;
+        private CharacterController _charController;
+        public Camera headCam;
 
         public float walkSpeed = 6.0f;
         public float runSpeed = 9f;
@@ -21,17 +22,15 @@ namespace Code.Player
 
         private float rotationVert = 0;
 
-        private CharacterController charController;
-
         private Vector3 _movementInput;
         [HideInInspector] public bool running;
 
-        void Start()
+        private void Awake()
         {
-            charController = GetComponent<CharacterController>();
+            _charController = GetComponent<CharacterController>();
         }
 
-        void Update()
+        private void Update()
         {
             MoveCharacter();
             RotateCharacter();
@@ -55,7 +54,7 @@ namespace Code.Player
             movement *= Time.deltaTime;
             movement = transform.TransformDirection(movement);
 
-            charController.Move(movement);
+            _charController.Move(movement);
         }
 
         private void RotateCharacter()

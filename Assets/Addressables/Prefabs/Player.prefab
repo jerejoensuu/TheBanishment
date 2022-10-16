@@ -62,6 +62,7 @@ GameObject:
   - component: {fileID: 8166539168465542807}
   - component: {fileID: 8166539168465542803}
   - component: {fileID: 8166539168465542802}
+  - component: {fileID: 5709465566458850013}
   - component: {fileID: 8166539168465542801}
   - component: {fileID: 8166539168465542892}
   - component: {fileID: 8166539168465542800}
@@ -103,6 +104,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movement: {fileID: 0}
+  interaction: {fileID: 0}
 --- !u!114 &8166539168465542802
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,6 +126,19 @@ MonoBehaviour:
   minimumVert: -45
   maximumVert: 45
   running: 0
+--- !u!114 &5709465566458850013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8166539168465542811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60c32492a90545b7bb19d44496da65a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxInteractionDistance: 4
 --- !u!143 &8166539168465542801
 CharacterController:
   m_ObjectHideFlags: 0
