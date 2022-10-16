@@ -15,8 +15,9 @@ namespace Code.Player
         public float noisePerSecond = 5;
         [Min(1)]
         public float noiseDecay = 5;
+        [HideInInspector]
         public bool tickdone;
-
+        public bool isHiding = false;
         public bool isMoving = false;
         private Vector3 lastPosition;
 

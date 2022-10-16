@@ -37,7 +37,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
-        if (noiseMaker.noiseMeter >= 50)
+        if (noiseMaker.noiseMeter >= 50 && !noiseMaker.isHiding)
         {
             playerLastKnownLocation = player.position;
 
@@ -47,7 +47,7 @@ public class EnemyBehaviour : MonoBehaviour
             agent.SetDestination(playerLastKnownLocation);
         }
 
-        if (distanceToPlayer < playerDetectionRange) // Paths to player if nearby
+        if (distanceToPlayer < playerDetectionRange && !noiseMaker.isHiding) // Paths to player if nearby
         {
             idle = false;
             resting = false;
