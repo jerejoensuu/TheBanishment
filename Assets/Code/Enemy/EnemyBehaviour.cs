@@ -9,7 +9,7 @@ public class EnemyBehaviour : MonoBehaviour
     public Vector3 targetDestination;
     public float restingTime;
     public float playerDetectionRange;
-    public float listeningRange;
+    // public float listeningRange;
     public float movementSpeed;
     public float chaseSpeed;
     private NavMeshAgent agent;
@@ -19,6 +19,8 @@ public class EnemyBehaviour : MonoBehaviour
     public Transform[] pointsOfInterest;
     private bool idle = true;
     private bool resting = false;
+
+    public GameObject DestinationIndicator;
 
     private void Start()
     {
@@ -65,6 +67,7 @@ public class EnemyBehaviour : MonoBehaviour
             StartCoroutine(Rest());
         }
 
+        DestinationIndicator.transform.position = agent.destination;
         return agent.destination;
     }
 
