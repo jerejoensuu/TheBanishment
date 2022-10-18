@@ -12,6 +12,11 @@ public class HidingPlace : MonoBehaviour
 
     void Start()
     {
+        if (noiseMaker == null)
+        {
+            noiseMaker = FindObjectOfType<NoiseMaker>();
+        }
+
         col = GetComponent<BoxCollider>();
         bounds = col.bounds;
     }
