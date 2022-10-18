@@ -12,8 +12,17 @@ namespace Code.Environment
         private bool _isDoorOpen;
         private bool _stateChangeInProgress;
 
+        public NoiseMaker noiseMaker;
+
+        private void Start()
+        {
+            noiseMaker = FindObjectOfType<NoiseMaker>();
+        }
+
         public void ToggleDoor()
         {
+            noiseMaker.noiseMeter += 10f;
+
             StartCoroutine(ChangeDoorState());
         }
 
