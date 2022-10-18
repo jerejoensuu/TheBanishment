@@ -71,7 +71,7 @@ public class EnemyBehaviour : MonoBehaviour
         {
             state = 1;
             alertTimeElapsed = 0f;
-            noiseMaker.noiseMeter = 30f;
+            // noiseMaker.noiseMeter = 30f;
             lastKnownPlayerPosition = noiseMaker.noisePosition;
             SetPath(lastKnownPlayerPosition);
         }
