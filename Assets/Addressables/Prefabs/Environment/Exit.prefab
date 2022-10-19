@@ -41,10 +41,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1856891199244504525}
-  - component: {fileID: 1856891199244504562}
+  - component: {fileID: 5262799430424757551}
   - component: {fileID: 3591120222388590636}
   m_Layer: 0
-  m_Name: Door
+  m_Name: Exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67,7 +67,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1856891199244504562
+--- !u!114 &5262799430424757551
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -76,13 +76,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1856891199244504524}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37d2ac9282f96ca49b1870c41fc35326, type: 3}
+  m_Script: {fileID: 11500000, guid: 13698bf09892431fb56c0146a8d84da6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   doorOpeningStyle: 2
-  speed: 2.5
+  speed: 0.35
+  openDoorAngle: 25
   hinge: {fileID: 1856891198821774580}
-  noiseMaker: {fileID: 0}
 --- !u!54 &3591120222388590636
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -161,7 +161,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2375ef7072130c04aae94845f7478fd5, type: 2}
+  - {fileID: 2100000, guid: 36451a5836e5d3e46adf78d7661367c2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
