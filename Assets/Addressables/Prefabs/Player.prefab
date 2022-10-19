@@ -45,12 +45,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   noiseMeter: 0
-  noiseRange: 0
+  noiseRange: 10
   noisePerSecond: 5
   noiseDecay: 5
   tickdone: 0
   isHiding: 0
   isMoving: 0
+  enemyIsClose: 0
+  noisePosition: {x: 0, y: 0, z: 0}
+  enemy: {fileID: 0}
 --- !u!1 &8166539168465542811
 GameObject:
   m_ObjectHideFlags: 0
@@ -68,7 +71,7 @@ GameObject:
   - component: {fileID: 8166539168465542800}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -213,7 +216,7 @@ GameObject:
   - component: {fileID: 8166539170213725709}
   m_Layer: 0
   m_Name: Model
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

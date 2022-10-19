@@ -24,8 +24,7 @@ namespace Code.Player
             }
             catch (Exception e)
             {
-                e = e; // To get rid of warning
-                Debug.LogWarning("No UI found", this);
+                Debug.LogWarning("No UI found: " + e, this);
             }
             
 
