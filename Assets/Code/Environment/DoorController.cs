@@ -68,7 +68,6 @@ namespace Code.Environment
             hingeTransform.localEulerAngles = new Vector3(0, targetAngle, 0);
 
             _isDoorOpen = !_isDoorOpen;
-            noiseMaker.noiseMeter += 10f;
 
             float GetDoorOpeningDirection()
             {
@@ -114,6 +113,7 @@ namespace Code.Environment
 
         public void Interact()
         {
+            noiseMaker.noiseMeter += 10f;
             ToggleDoor();
         }
 
