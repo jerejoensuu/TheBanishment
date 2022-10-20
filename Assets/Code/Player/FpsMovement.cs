@@ -10,7 +10,8 @@ namespace Code.Player
 
         public float walkSpeed = 6.0f;
         public float runSpeed = 9f;
-        private float Speed => running ? runSpeed : walkSpeed;
+        public float sneakSpeed = 1f;
+        private float Speed;
 
         public float gravity = -9.8f;
 
@@ -24,6 +25,7 @@ namespace Code.Player
 
         private Vector3 _movementInput;
         [HideInInspector] public bool running;
+        [HideInInspector] public bool sneaking;
 
         private void Awake()
         {
@@ -35,6 +37,17 @@ namespace Code.Player
             MoveCharacter();
             RotateCharacter();
             RotateCamera();
+
+            if (running)
+            {
+                Speed = runSpeed;
+            } else if (sneaking)
+            {
+                Speed = sneakSpeed;
+            } else 
+            {
+                Speed = walkSpeed;
+            }
         }
 
         public void ReceiveInput(Vector2 movementInput)

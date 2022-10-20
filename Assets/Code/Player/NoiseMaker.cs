@@ -66,10 +66,15 @@ namespace Code.Player
             {
                 if (noiseMeter < 100)
                 {
-                    int multiplier = 1;
+                    float multiplier = 1;
                     if (fpsMove.running)
                     {
                         multiplier = 5;
+                    }
+                    
+                    if (fpsMove.sneaking)
+                    {
+                        multiplier = 0.3f;
                     }
 
                     if (enemyIsClose)
@@ -77,7 +82,7 @@ namespace Code.Player
                         multiplier *= 2;
                     }
 
-                    noiseMeter += (noisePerSecond * multiplier)/10;
+                    noiseMeter += (noisePerSecond * multiplier)/10f;
                 } else if (noiseMeter + noisePerSecond/10 > 100) 
                 {
                     noiseMeter = 100;
