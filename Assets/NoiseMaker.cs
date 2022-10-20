@@ -7,20 +7,16 @@ namespace Code.Player
 {
     public class NoiseMaker : MonoBehaviour
     {
-        [Range(0,100)]
-        public float noiseMeter;
+        [Range(0,100)] public float noiseMeter;
         public float noiseRange;
+        [Min(1)] public float noisePerSecond = 5;
+        [Min(1)] public float noiseDecay = 5;
 
-        [Min(1)]
-        public float noisePerSecond = 5;
-        [Min(1)]
-        public float noiseDecay = 5;
-        [HideInInspector]
-        public bool tickdone;
-
+        private bool tickDone;
+        private bool saveDone;
         public bool isHiding = false;
-        public bool isMoving = false;
-        public bool enemyIsClose = false;
+        [SerializeField] private bool isMoving = false;
+        [SerializeField] private bool enemyIsClose = false;
 
         private Vector3 lastPosition;
         public Vector3 noisePosition;
@@ -31,7 +27,8 @@ namespace Code.Player
         void Start ()
         {
             fpsMove = transform.parent.GetComponent<FpsMovement>();
-            tickdone = true;
+            tickDone = true;
+            saveDone = true;
         }
 
         void Update()
@@ -41,15 +38,19 @@ namespace Code.Player
             if (transform.position != lastPosition)
             {
                 isMoving = true;
-                noisePosition = transform.position;
             } else 
             {
                 isMoving = false;
             }
 
-            if (tickdone == true)
+            if (tickDone)
             {
                 StartCoroutine(tickMeter());
+            }
+
+            if (saveDone && !isHiding)
+            {
+                StartCoroutine(SavePosition());
             }
 
             lastPosition = transform.position;
@@ -57,7 +58,7 @@ namespace Code.Player
  
         private IEnumerator tickMeter()
         {
-            tickdone = false;
+            tickDone = false;
 
             yield return new WaitForSeconds(0.1f);
 
@@ -94,7 +95,7 @@ namespace Code.Player
 
             noiseMeter = Mathf.Clamp(noiseMeter, 0, 100);
 
-            tickdone = true;
+            tickDone = true;
         }
 
         private bool CheckEnemyDistance()
@@ -113,6 +114,14 @@ namespace Code.Player
             }
 
             return distanceCheck;
+        }
+
+        private IEnumerator SavePosition()
+        {
+            saveDone = false;
+            noisePosition = transform.position;
+            yield return new WaitForSeconds(2f);
+            saveDone = true;
         }
     }
 }
