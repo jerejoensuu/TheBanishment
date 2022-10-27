@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Code.Player;
+using UnityEngine.UI;
 
 namespace Code.Player
 {
@@ -20,9 +21,13 @@ namespace Code.Player
 
         private Vector3 lastPosition;
         public Vector3 noisePosition;
+        public float alertValue;
 
         private FpsMovement fpsMove;
         public GameObject enemy;
+
+        [SerializeField] private Slider noiseBar;
+        [SerializeField] private Image barFill;
 
         void Start ()
         {
@@ -53,6 +58,7 @@ namespace Code.Player
                 StartCoroutine(SavePosition());
             }
 
+            AdjustBar();
             lastPosition = transform.position;
         }
  
@@ -127,6 +133,22 @@ namespace Code.Player
             noisePosition = transform.position;
             yield return new WaitForSeconds(2f);
             saveDone = true;
+        }
+
+        private void AdjustBar()
+        {
+            noiseBar.value = noiseMeter;
+            
+            if (noiseMeter < alertValue - (alertValue/5))
+            {
+                barFill.color = Color.green;
+            } else if (noiseMeter > (alertValue/5) && noiseMeter < alertValue)
+            {
+                barFill.color = Color.yellow;
+            } else if (noiseMeter > alertValue)
+            {
+                barFill.color = Color.red;
+            }
         }
     }
 }

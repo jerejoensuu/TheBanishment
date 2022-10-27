@@ -67,7 +67,7 @@ public class EnemyBehaviour : MonoBehaviour
             chaseTimeElapsed = 0f;
             SetPath(player.position);
         }
-        else if (noiseMaker.noiseMeter >= 40f)
+        else if (noiseMaker.noiseMeter >= noiseMaker.alertValue)
         {
             state = 1;
             alertTimeElapsed = 0f;
