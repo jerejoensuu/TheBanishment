@@ -2,36 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Code.Player;
+using UnityEngine.UI;
 
 namespace Code.Player
 {
     public class NoiseMaker : MonoBehaviour
     {
-        [Range(0,100)]
-        public float noiseMeter;
+        [Range(0,100)] public float noiseMeter;
         public float noiseRange;
+        [Min(1)] public float noisePerSecond = 5;
+        [Min(1)] public float noiseDecay = 5;
 
-        [Min(1)]
-        public float noisePerSecond = 5;
-        [Min(1)]
-        public float noiseDecay = 5;
-        [HideInInspector]
-        public bool tickdone;
-
+        private bool tickDone;
+        private bool saveDone;
         public bool isHiding = false;
-        public bool isMoving = false;
-        public bool enemyIsClose = false;
+        [SerializeField] private bool isMoving = false;
+        [SerializeField] private bool enemyIsClose = false;
 
         private Vector3 lastPosition;
         public Vector3 noisePosition;
+        public float alertValue;
 
         private FpsMovement fpsMove;
         public GameObject enemy;
 
+        [SerializeField] private Slider noiseBar;
+        [SerializeField] private Image barFill;
+
         void Start ()
         {
             fpsMove = transform.parent.GetComponent<FpsMovement>();
-            tickdone = true;
+            tickDone = true;
+            saveDone = true;
         }
 
         void Update()
@@ -41,23 +43,28 @@ namespace Code.Player
             if (transform.position != lastPosition)
             {
                 isMoving = true;
-                noisePosition = transform.position;
             } else 
             {
                 isMoving = false;
             }
 
-            if (tickdone == true)
+            if (tickDone)
             {
                 StartCoroutine(tickMeter());
             }
 
+            if (saveDone && !isHiding)
+            {
+                StartCoroutine(SavePosition());
+            }
+
+            AdjustBar();
             lastPosition = transform.position;
         }
  
         private IEnumerator tickMeter()
         {
-            tickdone = false;
+            tickDone = false;
 
             yield return new WaitForSeconds(0.1f);
 
@@ -65,10 +72,15 @@ namespace Code.Player
             {
                 if (noiseMeter < 100)
                 {
-                    int multiplier = 1;
+                    float multiplier = 1;
                     if (fpsMove.running)
                     {
                         multiplier = 5;
+                    }
+                    
+                    if (fpsMove.sneaking)
+                    {
+                        multiplier = 0.3f;
                     }
 
                     if (enemyIsClose)
@@ -76,7 +88,7 @@ namespace Code.Player
                         multiplier *= 2;
                     }
 
-                    noiseMeter += (noisePerSecond * multiplier)/10;
+                    noiseMeter += (noisePerSecond * multiplier)/10f;
                 } else if (noiseMeter + noisePerSecond/10 > 100) 
                 {
                     noiseMeter = 100;
@@ -94,7 +106,7 @@ namespace Code.Player
 
             noiseMeter = Mathf.Clamp(noiseMeter, 0, 100);
 
-            tickdone = true;
+            tickDone = true;
         }
 
         private bool CheckEnemyDistance()
@@ -113,6 +125,30 @@ namespace Code.Player
             }
 
             return distanceCheck;
+        }
+
+        private IEnumerator SavePosition()
+        {
+            saveDone = false;
+            noisePosition = transform.position;
+            yield return new WaitForSeconds(2f);
+            saveDone = true;
+        }
+
+        private void AdjustBar()
+        {
+            noiseBar.value = noiseMeter;
+            
+            if (noiseMeter < alertValue - (alertValue/5))
+            {
+                barFill.color = Color.green;
+            } else if (noiseMeter > (alertValue/5) && noiseMeter < alertValue)
+            {
+                barFill.color = Color.yellow;
+            } else if (noiseMeter > alertValue)
+            {
+                barFill.color = Color.red;
+            }
         }
     }
 }

@@ -26,6 +26,8 @@ namespace Code.Player
             _inputs.Player.Run.canceled += ReadRun;
             _inputs.Player.Fire.performed += Interact;
             _inputs.Player.Fire.canceled += Interact;
+            _inputs.Player.Sneak.performed += ReadSneak;
+            _inputs.Player.Sneak.canceled += ReadSneak;
         }
 
         private void ReadMovement(InputAction.CallbackContext context)
@@ -44,6 +46,11 @@ namespace Code.Player
             {
                 _player.interaction.InteractWithObject();
             }
+        }
+
+        private void ReadSneak(InputAction.CallbackContext context)
+        {
+            _player.movement.sneaking = context.performed;
         }
     }
 }

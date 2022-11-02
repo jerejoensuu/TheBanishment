@@ -10,7 +10,9 @@ namespace Code.Player
 
         public float walkSpeed = 6.0f;
         public float runSpeed = 9f;
-        private float Speed => running ? runSpeed : walkSpeed;
+        public float sneakSpeed = 1f;
+        private float Speed;
+        private float crouchTransitionSpeed = 15f;
 
         public float gravity = -9.8f;
 
@@ -24,6 +26,9 @@ namespace Code.Player
 
         private Vector3 _movementInput;
         [HideInInspector] public bool running;
+        [HideInInspector] public bool sneaking;
+
+        private Vector3 cameraStartPos;
 
         private void Awake()
         {
@@ -35,6 +40,20 @@ namespace Code.Player
             MoveCharacter();
             RotateCharacter();
             RotateCamera();
+            AdjustCamera();
+
+            if (running)
+            {
+                Speed = runSpeed;
+            } else if (sneaking)
+            {
+                Speed = sneakSpeed;
+            } else 
+            {
+                Speed = walkSpeed;
+            }
+
+            cameraStartPos = new Vector3(transform.position.x, transform.position.y + 0.488f, transform.position.z);
         }
 
         public void ReceiveInput(Vector2 movementInput)
@@ -76,6 +95,19 @@ namespace Code.Player
         {
             Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
             return movement * (running ? 2 : 1);
+        }
+
+        private void AdjustCamera()
+        { 
+            if (sneaking)
+            {
+                headCam.transform.position = new Vector3(cameraStartPos.x, 
+                    Mathf.Lerp(headCam.transform.position.y, cameraStartPos.y - 0.5f, crouchTransitionSpeed*Time.deltaTime), cameraStartPos.z);
+            } else 
+            {
+                headCam.transform.position = new Vector3(cameraStartPos.x, 
+                    Mathf.Lerp(headCam.transform.position.y, cameraStartPos.y, crouchTransitionSpeed*Time.deltaTime), cameraStartPos.z);
+            }
         }
     }
 }
