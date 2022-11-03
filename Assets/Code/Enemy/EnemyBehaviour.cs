@@ -24,6 +24,9 @@ public class EnemyBehaviour : MonoBehaviour
     [Tooltip("Remains in chase state for n seconds after losing sight of player")] public float chaseDuration;
     private float alertTimeElapsed;
     private float chaseTimeElapsed;
+    
+    [Tooltip("Enemy takes a break for n seconds after attacking the player")] public float attackCooldown;
+    private float attackTimeElapsed;
 
     [Header("Objects")]
     public Transform player;
@@ -40,48 +43,57 @@ public class EnemyBehaviour : MonoBehaviour
 
         alertTimeElapsed = alertDuration;
         chaseTimeElapsed = chaseDuration;
+        attackTimeElapsed = attackCooldown;
        
         SetPath(pointsOfInterest[0].position);
     }
 
     private void Update()
     {
-        if (chaseTimeElapsed < chaseDuration)
+        if (attackTimeElapsed < attackCooldown)
         {
-            chaseTimeElapsed += Time.deltaTime;
-            state = 2;
-        }
-        else if (alertTimeElapsed < alertDuration)
-        {
-            alertTimeElapsed += Time.deltaTime;
-            state = 1;
+            attackTimeElapsed += Time.deltaTime;
         }
         else
         {
-            state = 0;
-        }
+            if (chaseTimeElapsed < chaseDuration)
+            {
+                chaseTimeElapsed += Time.deltaTime;
+                state = 2;
+            }
+            else if (alertTimeElapsed < alertDuration)
+            {
+                alertTimeElapsed += Time.deltaTime;
+                state = 1;
+            }
+            else
+            {
+                state = 0;
+            }
 
-        if (SightCheck())
-        {
-            state = 2;
-            chaseTimeElapsed = 0f;
-            SetPath(player.position);
-        }
-        else if (noiseMaker.noiseMeter >= noiseMaker.alertValue)
-        {
-            state = 1;
-            alertTimeElapsed = 0f;
-            // noiseMaker.noiseMeter = 30f;
-            lastKnownPlayerPosition = noiseMaker.noisePosition;
-            SetPath(lastKnownPlayerPosition);
-        }
+            if (SightCheck() || Vector3.Distance(transform.position, player.position) < 1.5f)
+            {
+                state = 2;
+                chaseTimeElapsed = 0f;
+                lastKnownPlayerPosition = player.position;
+                SetPath(player.position);
+            }
+            else if (noiseMaker.noiseMeter >= 40f)
+            {
+                state = 1;
+                alertTimeElapsed = 0f;
+                // noiseMaker.noiseMeter = 30f;
+                lastKnownPlayerPosition = noiseMaker.noisePosition;
+                SetPath(lastKnownPlayerPosition);
+            }
 
-        if (agent.hasPath && agent.remainingDistance <= 2f)
-        {
-            TargetReached();
-        }
+            if (agent.hasPath && agent.remainingDistance <= 2f)
+            {
+                TargetReached();
+            }
 
-        SetSpeed();
+            SetSpeed();
+        }
     }
 
     private void SetSpeed()
@@ -134,7 +146,14 @@ public class EnemyBehaviour : MonoBehaviour
                 break;
 
                 case 2:
-                Debug.Log("Enemy attacks");
+                if (Vector3.Distance(transform.position, player.position) < 3f)
+                {
+                    Debug.Log("Enemy attacks");
+                    player.GetComponent<PlayerHealth>().TakeDamage(50f);
+                }
+                attackTimeElapsed = 0f;
+                SetPath(lastKnownPlayerPosition);
+                StartCoroutine(Rest(attackCooldown));
                 break;
             }
     }
@@ -158,7 +177,7 @@ public class EnemyBehaviour : MonoBehaviour
             else if (state == 2) { rayLength = sightRange * 10; }
 
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, (player.position - transform.position), out hit, rayLength)) // Raycast towards player to see if anything's blocking vision
+            if (Physics.Raycast(transform.position, (player.position - transform.position), out hit, rayLength, LayerMask.GetMask("Default"), QueryTriggerInteraction.Ignore)) // Raycast towards player to see if anything's blocking vision
             {
                 if (hit.transform.gameObject.tag == "Player") // Ray hits player
                 {
@@ -170,17 +189,18 @@ public class EnemyBehaviour : MonoBehaviour
         return playerDetected;
     }
 
-    IEnumerator Rest()
+    IEnumerator Rest(float changeTime = 0f)
     {
-        resting = true;
-        yield return new WaitForSeconds(restTime);
-
-        if (state > 0)
+        float time = restTime;
+        if (changeTime > 0f)
         {
-            resting = false;
-            yield break;
+            time = changeTime;
         }
 
+        resting = true;
+
+        yield return new WaitForSeconds(time);
+        
         resting = false;
     }
 }

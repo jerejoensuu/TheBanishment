@@ -48,12 +48,14 @@ MonoBehaviour:
   noiseRange: 10
   noisePerSecond: 5
   noiseDecay: 5
-  tickdone: 0
   isHiding: 0
   isMoving: 0
   enemyIsClose: 0
   noisePosition: {x: 0, y: 0, z: 0}
+  alertValue: 0
   enemy: {fileID: 0}
+  noiseBar: {fileID: 0}
+  barFill: {fileID: 0}
 --- !u!1 &8166539168465542811
 GameObject:
   m_ObjectHideFlags: 0
@@ -66,6 +68,7 @@ GameObject:
   - component: {fileID: 8166539168465542803}
   - component: {fileID: 8166539168465542802}
   - component: {fileID: 5709465566458850013}
+  - component: {fileID: 4879883130492977171}
   - component: {fileID: 8166539168465542801}
   - component: {fileID: 8166539168465542892}
   - component: {fileID: 8166539168465542800}
@@ -123,12 +126,14 @@ MonoBehaviour:
   headCam: {fileID: 8166539170221049439}
   walkSpeed: 6
   runSpeed: 9
+  sneakSpeed: 1
   gravity: -9.8
   sensitivityHor: 2
   sensitivityVert: 2
   minimumVert: -45
   maximumVert: 45
   running: 0
+  sneaking: 0
 --- !u!114 &5709465566458850013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,6 +147,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxInteractionDistance: 4
+--- !u!114 &4879883130492977171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8166539168465542811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fc2028746b5cf8459f44928f451b0d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maximumHealth: 100
+  healthRegenerationRate: 1
+  dead: 0
 --- !u!143 &8166539168465542801
 CharacterController:
   m_ObjectHideFlags: 0
