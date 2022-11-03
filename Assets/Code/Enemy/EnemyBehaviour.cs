@@ -18,6 +18,7 @@ public class EnemyBehaviour : MonoBehaviour
     public float chaseMoveSpeed;
 
     [Header("Detection")]
+    private bool playerDetected = false;
     [Tooltip("The width of the sight area. 0 = 180 degrees, 0.5 = 90 degrees")] public float detectionArea;
     public float sightRange;
     [Tooltip("Remains in alert state for n seconds after hearing noise")] public float alertDuration;
@@ -125,36 +126,37 @@ public class EnemyBehaviour : MonoBehaviour
         switch (state)
             {
                 case 0: // Path to random point of interest if no input from player
-                SetPath(pointsOfInterest[Random.Range(0, pointsOfInterest.Length)].position);
-                StartCoroutine(Rest());
-                break;
+                    SetPath(pointsOfInterest[Random.Range(0, pointsOfInterest.Length)].position);
+                    StartCoroutine(Rest());
+                    break;
 
                 case 1: // Path to nearest point of interest after investigating a noise
-                float shortestDistance = Vector3.Distance(pointsOfInterest[0].position, transform.position);
-                Vector3 nearestPoint = pointsOfInterest[0].position;
+                    float shortestDistance = Vector3.Distance(pointsOfInterest[0].position, transform.position);
+                    Vector3 nearestPoint = pointsOfInterest[0].position;
 
-                for (int i = 1; i < pointsOfInterest.Length; i++)
-                {
-                    if (Vector3.Distance(pointsOfInterest[i].position, transform.position) < shortestDistance)
+                    for (int i = 1; i < pointsOfInterest.Length; i++)
                     {
-                        nearestPoint = pointsOfInterest[i].position;
+                        if (Vector3.Distance(pointsOfInterest[i].position, transform.position) < shortestDistance)
+                        {
+                            nearestPoint = pointsOfInterest[i].position;
+                        }
                     }
-                }
 
-                SetPath(nearestPoint);
-                StartCoroutine(Rest());
-                break;
+                    SetPath(nearestPoint);
+                    StartCoroutine(Rest());
+                    break;
 
                 case 2:
-                if (Vector3.Distance(transform.position, player.position) < 3f)
-                {
-                    Debug.Log("Enemy attacks");
-                    player.GetComponent<PlayerHealth>().TakeDamage(50f);
-                }
-                attackTimeElapsed = 0f;
-                SetPath(lastKnownPlayerPosition);
-                StartCoroutine(Rest(attackCooldown));
-                break;
+                    if (Vector3.Distance(transform.position, player.position) < 3f)
+                    {
+                        Debug.Log("Enemy attacks");
+                        player.GetComponent<PlayerHealth>().TakeDamage(55f);
+                    }
+
+                    attackTimeElapsed = 0f;
+                    SetPath(lastKnownPlayerPosition);
+                    StartCoroutine(Rest(attackCooldown));
+                    break;
             }
     }
 
@@ -166,7 +168,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     private bool SightCheck()
     {
-        bool playerDetected = false;
+        bool inSight = false;
         Vector3 dir = Vector3.Normalize(player.position - transform.position);
         float dot = Vector3.Dot(dir, transform.forward);
 
@@ -181,12 +183,14 @@ public class EnemyBehaviour : MonoBehaviour
             {
                 if (hit.transform.gameObject.tag == "Player") // Ray hits player
                 {
-                    playerDetected = true;
+                    inSight = true;
                 }
             }
 
         }
-        return playerDetected;
+
+        playerDetected = inSight;
+        return inSight;
     }
 
     IEnumerator Rest(float changeTime = 0f)

@@ -25,6 +25,12 @@ public class HidingPlace : MonoBehaviour
     {
         if (bounds.Contains(noiseMaker.transform.position))
         {
+            if (!noiseMaker.isHiding)
+            {
+                Debug.Log("Enter");
+                
+            }
+
             noiseMaker.isHiding = true;
         } else {
             noiseMaker.isHiding = false;
