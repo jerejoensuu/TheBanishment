@@ -771,7 +771,7 @@ MonoBehaviour:
   detectionArea: 0
   sightRange: 7.5
   alertDuration: 5
-  chaseDuration: 5
+  chaseDuration: 3
   attackCooldown: 1
   player: {fileID: 0}
   pointsOfInterest:

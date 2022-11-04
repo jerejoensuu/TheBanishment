@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Code.Player;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Code.Environment
 {
@@ -14,6 +15,8 @@ namespace Code.Environment
         private bool _isDoorOpen;
         private bool _stateChangeInProgress;
         private PlayerController _player;
+        private NavMeshObstacle navObstacle;
+        public Transform enemy;
 
         private enum OpeningStyle
         {
@@ -29,6 +32,8 @@ namespace Code.Environment
         {
             _player = FindObjectOfType<PlayerController>();
             noiseMaker = FindObjectOfType<NoiseMaker>();
+            navObstacle = GetComponentInChildren<NavMeshObstacle>();
+            navObstacle.carving = _isDoorOpen;
         }
 
         public void ToggleDoor()
@@ -68,6 +73,7 @@ namespace Code.Environment
             hingeTransform.localEulerAngles = new Vector3(0, targetAngle, 0);
 
             _isDoorOpen = !_isDoorOpen;
+            navObstacle.carving = _isDoorOpen;
 
             float GetDoorOpeningDirection()
             {
@@ -113,15 +119,30 @@ namespace Code.Environment
 
         public void Interact()
         {
+            if (enemy != null) return;
+
             noiseMaker.noiseMeter += 5;
             ToggleDoor();
         }
 
-        public void OnTriggerEnter(Collider col)
+        public void OnTriggerStay(Collider col)
         {
-            if (!_isDoorOpen && col.CompareTag("Enemy"))
+            if (col.CompareTag("Enemy"))
             {
-                OpenDoor(col.transform);
+                enemy = col.transform;
+
+                if (!_isDoorOpen && !_stateChangeInProgress)
+                {
+                OpenDoor(enemy);
+                }
+            }
+        }
+
+        public void OnTriggerExit(Collider col)
+        {
+            if (col.transform == enemy)
+            {
+                enemy = null;
             }
         }
     }

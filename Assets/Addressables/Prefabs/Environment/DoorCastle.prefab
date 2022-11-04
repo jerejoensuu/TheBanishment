@@ -71,5 +71,34 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 2.1
       objectReference: {fileID: 0}
+    - target: {fileID: 6401080948539044415, guid: b11a88a2505620e48b35e8e97fb3494f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6401080948539044415, guid: b11a88a2505620e48b35e8e97fb3494f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b11a88a2505620e48b35e8e97fb3494f, type: 3}
+--- !u!1 &5060608058508280952 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1856891199788219997, guid: b11a88a2505620e48b35e8e97fb3494f, type: 3}
+  m_PrefabInstance: {fileID: 6917498802734725669}
+  m_PrefabAsset: {fileID: 0}
+--- !u!208 &2672611072738889454
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5060608058508280952}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 0
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.2

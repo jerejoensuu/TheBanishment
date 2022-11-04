@@ -4873,6 +4873,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 50977449}
     - target: {fileID: 4218286211233545203, guid: 51ba6c61d7899a14493f4debeaea2178, type: 3}
+      propertyPath: chaseDuration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4218286211233545203, guid: 51ba6c61d7899a14493f4debeaea2178, type: 3}
       propertyPath: pointsOfInterest.Array.size
       value: 15
       objectReference: {fileID: 0}

@@ -23,8 +23,9 @@ public class EnemyBehaviour : MonoBehaviour
     public float sightRange;
     [Tooltip("Remains in alert state for n seconds after hearing noise")] public float alertDuration;
     [Tooltip("Remains in chase state for n seconds after losing sight of player")] public float chaseDuration;
-    private float alertTimeElapsed;
-    private float chaseTimeElapsed;
+    public float alertTimeElapsed;
+    public float chaseTimeElapsed;
+    public bool investigating = false;
     
     [Tooltip("Enemy takes a break for n seconds after attacking the player")] public float attackCooldown;
     private float attackTimeElapsed;
@@ -51,42 +52,46 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void Update()
     {
-        if (attackTimeElapsed < attackCooldown)
+        if (attackTimeElapsed < attackCooldown) // Do nothing for a while after attacking
         {
             attackTimeElapsed += Time.deltaTime;
-            chaseTimeElapsed += Time.deltaTime;
         }
         else
         {
-            if (chaseTimeElapsed < chaseDuration)
-            {
-                chaseTimeElapsed += Time.deltaTime;
-                state = 2;
-            }
-            else if (alertTimeElapsed < alertDuration)
-            {
-                alertTimeElapsed += Time.deltaTime;
-                state = 1;
-            }
-            else
-            {
-                state = 0;
-            }
-
-            if (SightCheck() || Vector3.Distance(transform.position, player.position) < 1.5f)
+            if (SightCheck() || Vector3.Distance(transform.position, player.position) < 1.5f) // Chase when player is in sight or touching
             {
                 state = 2;
                 chaseTimeElapsed = 0f;
                 lastKnownPlayerPosition = player.position;
                 SetPath(player.position);
             }
-            else if (noiseMaker.noiseMeter >= 40f)
+            else if (noiseMaker.noiseMeter >= 40f || state == 2) // Investigate last player position when hearing noise of when losing track of player after chasing
             {
+                investigating = true;
                 state = 1;
                 alertTimeElapsed = 0f;
-                // noiseMaker.noiseMeter = 30f;
                 lastKnownPlayerPosition = noiseMaker.noisePosition;
                 SetPath(lastKnownPlayerPosition);
+            }
+
+            if (chaseTimeElapsed < chaseDuration) // Remain in chase state for a short duration when losing sight
+            {
+                chaseTimeElapsed += Time.deltaTime;
+                lastKnownPlayerPosition = player.position;
+                SetPath(lastKnownPlayerPosition);
+                state = 2;
+            }
+            else if (alertTimeElapsed < alertDuration)
+            {
+                if (!investigating) // Start counting down from alert state after investigating noise position
+                {
+                    alertTimeElapsed += Time.deltaTime;
+                }
+                state = 1;
+            }
+            else
+            {
+                state = 0;
             }
 
             if (agent.hasPath && agent.remainingDistance <= 2f)
@@ -147,11 +152,11 @@ public class EnemyBehaviour : MonoBehaviour
                     StartCoroutine(Rest());
                     break;
 
-                case 2:
+                case 2: // Attack player, then rest for a while
                     if (Vector3.Distance(transform.position, player.position) < 3f)
                     {
                         Debug.Log("Enemy attacks");
-                        player.GetComponent<PlayerHealth>().TakeDamage(55f);
+                        player.GetComponent<PlayerHealth>().TakeDamage(45f);
                     }
 
                     attackTimeElapsed = 0f;
@@ -206,6 +211,10 @@ public class EnemyBehaviour : MonoBehaviour
         resting = true;
 
         yield return new WaitForSeconds(time);
+        if (investigating)
+        {
+            investigating = false;
+        }
         
         resting = false;
     }
