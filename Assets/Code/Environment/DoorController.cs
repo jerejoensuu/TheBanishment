@@ -23,7 +23,7 @@ namespace Code.Environment
             TowardPlayer
         }
 
-        public NoiseMaker noiseMaker;
+        [HideInInspector] public NoiseMaker noiseMaker;
 
         private void Start()
         {
@@ -113,7 +113,7 @@ namespace Code.Environment
 
         public void Interact()
         {
-            noiseMaker.noiseMeter += 10f;
+            noiseMaker.noiseMeter += 5;
             ToggleDoor();
         }
 

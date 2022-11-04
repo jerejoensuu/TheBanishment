@@ -1,4 +1,5 @@
 ﻿using System;
+using Code.Level;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -28,6 +29,12 @@ namespace Code.Player
             _inputs.Player.Fire.canceled += Interact;
             _inputs.Player.Sneak.performed += ReadSneak;
             _inputs.Player.Sneak.canceled += ReadSneak;
+
+            _inputs.Player.Flashlight.performed += ToggleFlashlight;
+            _inputs.Player.Flashlight.canceled += ToggleFlashlight;
+
+            _inputs.Player.Menu.performed += Escape;
+            _inputs.Player.Menu.canceled += Escape;
         }
 
         private void ReadMovement(InputAction.CallbackContext context)
@@ -51,6 +58,22 @@ namespace Code.Player
         private void ReadSneak(InputAction.CallbackContext context)
         {
             _player.movement.sneaking = context.performed;
+        }
+
+        private void ToggleFlashlight(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+            {
+                _player.ToggleFlashlight();
+            }
+        }
+
+        private void Escape(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+            {
+                FindObjectOfType<LevelManager>().ResetLevel();
+            }
         }
     }
 }

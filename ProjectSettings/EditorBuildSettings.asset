@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Addressables/Scenes/TestScenes/MockupLevel.unity
+    guid: 75c453630e38d5f42baf84eccf3f3cc0
   m_configObjects: {}

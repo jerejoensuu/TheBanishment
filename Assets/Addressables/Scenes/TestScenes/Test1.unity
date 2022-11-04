@@ -1111,7 +1111,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!195 &1149671883
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1162,16 +1162,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dee71ce86fb2eac4885e3a1262111e13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  state: 0
+  lastKnownPlayerPosition: {x: 0, y: 0, z: 0}
   targetDestination: {x: 0, y: 0, z: 0}
-  waitTime: 0
+  restTime: 0
   idleMoveSpeed: 0
+  alertMoveSpeed: 0
   chaseMoveSpeed: 0
   detectionArea: 0.5
-  idleSightRange: 7.5
-  alertSightRange: 15
-  chaseSightRange: 30
+  sightRange: 0
+  alertDuration: 0
+  chaseDuration: 0
+  attackCooldown: 0
   player: {fileID: 1466183017}
   pointsOfInterest: []
+  DestinationIndicator: {fileID: 0}
 --- !u!1 &1212749377
 GameObject:
   m_ObjectHideFlags: 0
@@ -1953,6 +1958,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1368297834, guid: baf896f95a5bead448c2f8db1f762866, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1346751879672024127, guid: baf896f95a5bead448c2f8db1f762866, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -2001,6 +2010,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
+    - target: {fileID: 6527480701676813758, guid: baf896f95a5bead448c2f8db1f762866, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: baf896f95a5bead448c2f8db1f762866, type: 3}
 --- !u!1001 &8166539169800121132
@@ -2010,6 +2023,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5060421905564943725, guid: 427c25991c1f37041954b1cfa967ad12, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8166539168465542807, guid: 427c25991c1f37041954b1cfa967ad12, type: 3}
       propertyPath: m_RootOrder
       value: 3

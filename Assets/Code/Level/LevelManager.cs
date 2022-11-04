@@ -1,6 +1,7 @@
 ﻿using System;
 using Code.Player;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Code.Level
 {
@@ -32,6 +33,16 @@ namespace Code.Level
         public void AddCollectable()
         {
             CollectablesInPossession++;
+        }
+
+        public void ResetLevel()
+        {
+            SceneManager.LoadScene("MockupLevel");
+        }
+
+        public void EndLevel()
+        {
+            ResetLevel();
         }
     }
 }

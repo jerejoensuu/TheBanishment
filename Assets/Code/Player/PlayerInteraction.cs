@@ -35,8 +35,18 @@ namespace Code.Player
         {
             var camTransform = _player.movement.headCam.transform;
             Ray ray = new Ray(camTransform.position, camTransform.forward);
-            if (Physics.Raycast(ray, out RaycastHit hitInfo, maxInteractionDistance))
+            if (Physics.Raycast(ray, out RaycastHit hitInfo, maxInteractionDistance, -1, QueryTriggerInteraction.Ignore))
             {
+                if (hitInfo.transform.TryGetComponent(out Collider triggerCollider))
+                {
+                    if (triggerCollider.isTrigger)
+                    {
+                        _viewedObject = null;
+                        SetLookAtText("");
+                        return;
+                    }
+                }
+                // TODO: Make sure this doesn't cause lag
                 _viewedObject = hitInfo.transform.gameObject.GetComponentInParent<IInteractable>();
             }
             else

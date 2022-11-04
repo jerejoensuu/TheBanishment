@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Code.Level;
 using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
@@ -47,5 +48,8 @@ public class PlayerHealth : MonoBehaviour
     {
         Debug.Log("Dead");
         dead = true;
+        
+        // TEMP
+        FindObjectOfType<LevelManager>().ResetLevel();
     }
 }

@@ -105,6 +105,7 @@ namespace Code.Environment
         public void Interact()
         {
             OpenDoor();
+            _levelManager.EndLevel();
         }
 
         private bool IsExitOpen()

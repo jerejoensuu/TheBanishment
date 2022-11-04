@@ -8,7 +8,7 @@ namespace Code.Player
 {
     public class NoiseMaker : MonoBehaviour
     {
-        [Range(0,100)] public float noiseMeter;
+        [Range(0, 100)] public float noiseMeter;
         public float noiseRange;
         [Min(1)] public float noisePerSecond = 5;
         [Min(1)] public float noiseDecay = 5;
@@ -29,28 +29,22 @@ namespace Code.Player
         [SerializeField] private Slider noiseBar;
         [SerializeField] private Image barFill;
 
-        void Start ()
+        private void Start()
         {
             fpsMove = transform.parent.GetComponent<FpsMovement>();
             tickDone = true;
             saveDone = true;
         }
 
-        void Update()
+        private void Update()
         {
             enemyIsClose = CheckEnemyDistance();
 
-            if (transform.position != lastPosition)
-            {
-                isMoving = true;
-            } else 
-            {
-                isMoving = false;
-            }
+            isMoving = transform.position != lastPosition;
 
             if (tickDone)
             {
-                StartCoroutine(tickMeter());
+                StartCoroutine(TickMeter());
             }
 
             if (saveDone && !isHiding)
@@ -61,8 +55,8 @@ namespace Code.Player
             AdjustBar();
             lastPosition = transform.position;
         }
- 
-        private IEnumerator tickMeter()
+
+        private IEnumerator TickMeter()
         {
             tickDone = false;
 
@@ -73,14 +67,18 @@ namespace Code.Player
                 if (noiseMeter < 100)
                 {
                     float multiplier = 1;
+                    float soundAmount = 30;
+                    
                     if (fpsMove.running)
                     {
                         multiplier = 5;
+                        soundAmount = 60;
                     }
-                    
+
                     if (fpsMove.sneaking)
                     {
                         multiplier = 0.3f;
+                        soundAmount = 15;
                     }
 
                     if (enemyIsClose)
@@ -88,19 +86,15 @@ namespace Code.Player
                         multiplier *= 2;
                     }
 
-                    noiseMeter += (noisePerSecond * multiplier)/10f;
-                } else if (noiseMeter + noisePerSecond/10 > 100) 
-                {
-                    noiseMeter = 100;
+                    // noiseMeter += (noisePerSecond * multiplier) / 10f;
+                    noiseMeter = soundAmount;
                 }
-            } else if (!isMoving) 
+            }
+            else if (!isMoving)
             {
                 if (noiseMeter > 0)
                 {
-                    noiseMeter -= noiseDecay/10;
-                } else if (noiseMeter - noiseDecay/10 < 0)
-                {
-                    noiseMeter = 0;
+                    noiseMeter -= noiseDecay / 10;
                 }
             }
 
@@ -119,7 +113,8 @@ namespace Code.Player
             if (distanceSquared < noiseRange * noiseRange)
             {
                 distanceCheck = true;
-            } else 
+            }
+            else
             {
                 distanceCheck = false;
             }
@@ -138,14 +133,16 @@ namespace Code.Player
         private void AdjustBar()
         {
             noiseBar.value = noiseMeter;
-            
-            if (noiseMeter < alertValue - (alertValue/5))
+
+            if (noiseMeter < alertValue - (alertValue / 5))
             {
                 barFill.color = Color.green;
-            } else if (noiseMeter > (alertValue/5) && noiseMeter < alertValue)
+            }
+            else if (noiseMeter > (alertValue / 5) && noiseMeter < alertValue)
             {
                 barFill.color = Color.yellow;
-            } else if (noiseMeter > alertValue)
+            }
+            else if (noiseMeter > alertValue)
             {
                 barFill.color = Color.red;
             }

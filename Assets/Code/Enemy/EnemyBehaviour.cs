@@ -54,6 +54,7 @@ public class EnemyBehaviour : MonoBehaviour
         if (attackTimeElapsed < attackCooldown)
         {
             attackTimeElapsed += Time.deltaTime;
+            chaseTimeElapsed += Time.deltaTime;
         }
         else
         {
@@ -195,6 +196,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     IEnumerator Rest(float changeTime = 0f)
     {
+        state = 0;
         float time = restTime;
         if (changeTime > 0f)
         {

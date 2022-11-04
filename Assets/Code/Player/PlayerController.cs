@@ -10,6 +10,9 @@ namespace Code.Player
         [HideInInspector] public FpsMovement movement;
         [HideInInspector] public PlayerInteraction interaction;
 
+        [SerializeField] private GameObject flashlight;
+        private bool _flashlightOn = true;
+
         private void Awake()
         {
             movement = GetComponent<FpsMovement>();
@@ -22,6 +25,10 @@ namespace Code.Player
             interaction.ViewedItemHover();
         }
 
-        
+        public void ToggleFlashlight()
+        {
+            _flashlightOn = !_flashlightOn;
+            flashlight.SetActive(_flashlightOn);
+        }
     }
 }
