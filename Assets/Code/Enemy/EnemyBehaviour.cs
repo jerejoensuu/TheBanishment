@@ -7,7 +7,7 @@ using Code.Player;
 public class EnemyBehaviour : MonoBehaviour
 {
     public int state; // 0 oblivious, 1 alert, 2 chasing
-    private bool resting = false;
+    private bool resting;
 
     [Header("Movement")]
     public Vector3 lastKnownPlayerPosition;
