@@ -23,7 +23,6 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(float amount)
     {
         damageTaken += amount;
-        Debug.Log(damageTaken);
 
         if (damageTaken > maximumHealth)
         {
