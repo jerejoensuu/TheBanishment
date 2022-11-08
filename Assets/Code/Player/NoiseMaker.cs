@@ -67,18 +67,15 @@ namespace Code.Player
                 if (noiseMeter < 100)
                 {
                     float multiplier = 1;
-                    float soundAmount = 30;
                     
                     if (fpsMove.running)
                     {
                         multiplier = 5;
-                        soundAmount = 60;
                     }
 
                     if (fpsMove.sneaking)
                     {
                         multiplier = 0.3f;
-                        soundAmount = 15;
                     }
 
                     if (enemyIsClose)
@@ -86,8 +83,7 @@ namespace Code.Player
                         multiplier *= 2;
                     }
 
-                    // noiseMeter += (noisePerSecond * multiplier) / 10f;
-                    noiseMeter = soundAmount;
+                    noiseMeter += (noisePerSecond * multiplier) / 10f;
                 }
             }
             else if (!isMoving)
