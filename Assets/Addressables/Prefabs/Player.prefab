@@ -52,7 +52,7 @@ MonoBehaviour:
   isMoving: 0
   enemyIsClose: 0
   noisePosition: {x: 0, y: 0, z: 0}
-  alertValue: 40
+  alertValue: 60
   enemy: {fileID: 0}
   noiseBar: {fileID: 0}
   barFill: {fileID: 0}
