@@ -764,15 +764,15 @@ MonoBehaviour:
   state: 0
   lastKnownPlayerPosition: {x: 0, y: 0, z: 0}
   targetDestination: {x: 0, y: 0, z: 0}
-  restTime: 2
+  restTime: 2.5
   idleMoveSpeed: 3
   alertMoveSpeed: 6
   chaseMoveSpeed: 7.5
   detectionArea: 0
   sightRange: 7.5
   alertDuration: 5
-  chaseDuration: 3
-  attackCooldown: 1
+  chaseDuration: 1
+  attackCooldown: 1.5
   player: {fileID: 0}
   pointsOfInterest:
   - {fileID: 0}

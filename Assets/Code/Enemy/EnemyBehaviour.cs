@@ -23,12 +23,10 @@ public class EnemyBehaviour : MonoBehaviour
     public float sightRange;
     [Tooltip("Remains in alert state for n seconds after hearing noise")] public float alertDuration;
     [Tooltip("Remains in chase state for n seconds after losing sight of player")] public float chaseDuration;
-    public float alertTimeElapsed;
-    public float chaseTimeElapsed;
-    public bool investigating = false;
-    
+    private float alertTimeElapsed;
+    private float chaseTimeElapsed;
+    private bool investigating = false;
     [Tooltip("Enemy takes a break for n seconds after attacking the player")] public float attackCooldown;
-    private float attackTimeElapsed;
 
     [Header("Objects")]
     public Transform player;
@@ -45,62 +43,54 @@ public class EnemyBehaviour : MonoBehaviour
 
         alertTimeElapsed = alertDuration;
         chaseTimeElapsed = chaseDuration;
-        attackTimeElapsed = attackCooldown;
        
         SetPath(pointsOfInterest[0].position);
     }
 
     private void Update()
     {
-        if (attackTimeElapsed < attackCooldown) // Do nothing for a while after attacking
+        if (SightCheck() || Vector3.Distance(transform.position, player.position) < 1.5f) // Chase when player is in sight or touching
         {
-            attackTimeElapsed += Time.deltaTime;
+            state = 2;
+            chaseTimeElapsed = 0f;
+            lastKnownPlayerPosition = player.position;
+            SetPath(player.position);
+        }
+        else if (noiseMaker.noiseMeter >= noiseMaker.alertValue || state == 2) // Investigate last player position when hearing noise of when losing track of player after chasing
+        {
+            investigating = true;
+            state = 1;
+            alertTimeElapsed = 0f;
+            lastKnownPlayerPosition = noiseMaker.noisePosition;
+            SetPath(lastKnownPlayerPosition);
+        }
+
+        if (chaseTimeElapsed < chaseDuration) // Remain in chase state for a short duration when losing sight
+        {
+            chaseTimeElapsed += Time.deltaTime;
+            lastKnownPlayerPosition = player.position;
+            SetPath(lastKnownPlayerPosition);
+            state = 2;
+        }
+        else if (alertTimeElapsed < alertDuration)
+        {
+            if (!investigating) // Start counting down from alert state after investigating noise position
+            {
+                alertTimeElapsed += Time.deltaTime;
+            }
+            state = 1;
         }
         else
         {
-            if (SightCheck() || Vector3.Distance(transform.position, player.position) < 1.5f) // Chase when player is in sight or touching
-            {
-                state = 2;
-                chaseTimeElapsed = 0f;
-                lastKnownPlayerPosition = player.position;
-                SetPath(player.position);
-            }
-            else if (noiseMaker.noiseMeter >= noiseMaker.alertValue || state == 2) // Investigate last player position when hearing noise of when losing track of player after chasing
-            {
-                investigating = true;
-                state = 1;
-                alertTimeElapsed = 0f;
-                lastKnownPlayerPosition = noiseMaker.noisePosition;
-                SetPath(lastKnownPlayerPosition);
-            }
-
-            if (chaseTimeElapsed < chaseDuration) // Remain in chase state for a short duration when losing sight
-            {
-                chaseTimeElapsed += Time.deltaTime;
-                lastKnownPlayerPosition = player.position;
-                SetPath(lastKnownPlayerPosition);
-                state = 2;
-            }
-            else if (alertTimeElapsed < alertDuration)
-            {
-                if (!investigating) // Start counting down from alert state after investigating noise position
-                {
-                    alertTimeElapsed += Time.deltaTime;
-                }
-                state = 1;
-            }
-            else
-            {
-                state = 0;
-            }
-
-            if (agent.hasPath && agent.remainingDistance <= 2f)
-            {
-                TargetReached();
-            }
-
-            SetSpeed();
+            state = 0;
         }
+
+        if (agent.hasPath && agent.remainingDistance <= 2f)
+        {
+            TargetReached();
+        }
+
+        SetSpeed();
     }
 
     private void SetSpeed()
@@ -133,7 +123,7 @@ public class EnemyBehaviour : MonoBehaviour
             {
                 case 0: // Path to random point of interest if no input from player
                     SetPath(pointsOfInterest[Random.Range(0, pointsOfInterest.Length)].position);
-                    StartCoroutine(Rest());
+                    StartCoroutine(Rest(true));
                     break;
 
                 case 1: // Path to nearest point of interest after investigating a noise
@@ -149,19 +139,17 @@ public class EnemyBehaviour : MonoBehaviour
                     }
 
                     SetPath(nearestPoint);
-                    StartCoroutine(Rest());
+                    StartCoroutine(Rest(true));
                     break;
 
                 case 2: // Attack player, then rest for a while
-                    if (Vector3.Distance(transform.position, player.position) < 3f)
+                    if (!resting)
                     {
                         Debug.Log("Enemy attacks");
+                        SetPath(lastKnownPlayerPosition);
+                        StartCoroutine(Rest(false, attackCooldown));
                         player.GetComponent<PlayerHealth>().TakeDamage(45f);
                     }
-
-                    attackTimeElapsed = 0f;
-                    SetPath(lastKnownPlayerPosition);
-                    StartCoroutine(Rest(attackCooldown));
                     break;
             }
     }
@@ -199,9 +187,8 @@ public class EnemyBehaviour : MonoBehaviour
         return inSight;
     }
 
-    IEnumerator Rest(float changeTime = 0f)
+    IEnumerator Rest(bool interruptable, float changeTime = 0f)
     {
-        state = 0;
         float time = restTime;
         if (changeTime > 0f)
         {
@@ -210,12 +197,18 @@ public class EnemyBehaviour : MonoBehaviour
 
         resting = true;
 
-        yield return new WaitForSeconds(time);
-        if (investigating)
+        for (float timeElapsed = 0f; timeElapsed < time; timeElapsed += Time.deltaTime)
         {
-            investigating = false;
+            yield return new WaitForEndOfFrame();
+            if (interruptable && state > 1)
+            {
+                resting = false;
+                investigating = false;
+                yield break;
+            }
         }
-        
+
+        investigating = false;
         resting = false;
     }
 }
