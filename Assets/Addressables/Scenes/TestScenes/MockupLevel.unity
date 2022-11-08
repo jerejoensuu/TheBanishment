@@ -4391,6 +4391,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 205601352}
     - target: {fileID: 6595551177337338761, guid: 427c25991c1f37041954b1cfa967ad12, type: 3}
+      propertyPath: alertValue
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 6595551177337338761, guid: 427c25991c1f37041954b1cfa967ad12, type: 3}
       propertyPath: noiseDecay
       value: 25
       objectReference: {fileID: 0}

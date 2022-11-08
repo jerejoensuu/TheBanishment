@@ -65,7 +65,7 @@ public class EnemyBehaviour : MonoBehaviour
                 lastKnownPlayerPosition = player.position;
                 SetPath(player.position);
             }
-            else if (noiseMaker.noiseMeter >= 40f || state == 2) // Investigate last player position when hearing noise of when losing track of player after chasing
+            else if (noiseMaker.noiseMeter >= noiseMaker.alertValue || state == 2) // Investigate last player position when hearing noise of when losing track of player after chasing
             {
                 investigating = true;
                 state = 1;
