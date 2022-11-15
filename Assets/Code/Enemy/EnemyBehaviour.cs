@@ -19,8 +19,9 @@ public class EnemyBehaviour : MonoBehaviour
 
     [Header("Detection")]
     private bool playerDetected = false;
-    [Tooltip("The width of the sight area. 0 = 180 degrees, 0.5 = 90 degrees")] public float detectionArea;
+    private float detectionArea = 0.05f; //The width of the sight area. 0 = 180 degrees, 0.5 = 90 degrees
     public float sightRange;
+    [Tooltip("Multiply sight range by n when flashlight is on")] public float flashlightSightMultiplier;
     [Tooltip("Remains in alert state for n seconds after hearing noise")] public float alertDuration;
     [Tooltip("Remains in chase state for n seconds after losing sight of player")] public float chaseDuration;
     private float alertTimeElapsed;
@@ -33,12 +34,13 @@ public class EnemyBehaviour : MonoBehaviour
     public Transform[] pointsOfInterest;
     private NavMeshAgent agent;
     private NoiseMaker noiseMaker;
-
+    private PlayerController playerController;
     public GameObject DestinationIndicator;
 
     private void Start()
     { 
         noiseMaker = player.GetComponentInChildren<NoiseMaker>();
+        playerController = player.GetComponent<PlayerController>();
         agent = GetComponent<NavMeshAgent>();
 
         alertTimeElapsed = alertDuration;
@@ -163,6 +165,18 @@ public class EnemyBehaviour : MonoBehaviour
     private bool SightCheck()
     {
         bool inSight = false;
+
+        float multiplier = 1f;
+        if (playerController.FlashlightOn())
+        {
+            multiplier = flashlightSightMultiplier;
+            detectionArea = 0.05f;
+        }
+        else
+        {
+            detectionArea = 0.25f;
+        }
+
         Vector3 dir = Vector3.Normalize(player.position - transform.position);
         float dot = Vector3.Dot(dir, transform.forward);
 
@@ -171,6 +185,7 @@ public class EnemyBehaviour : MonoBehaviour
             float rayLength = sightRange;
             if (state == 1) { rayLength = sightRange * 2; }
             else if (state == 2) { rayLength = sightRange * 10; }
+            rayLength = rayLength * multiplier;
 
             RaycastHit hit;
             if (Physics.Raycast(transform.position, (player.position - transform.position), out hit, rayLength, LayerMask.GetMask("Default"), QueryTriggerInteraction.Ignore)) // Raycast towards player to see if anything's blocking vision

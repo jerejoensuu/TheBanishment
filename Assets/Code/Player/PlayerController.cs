@@ -30,5 +30,10 @@ namespace Code.Player
             _flashlightOn = !_flashlightOn;
             flashlight.SetActive(_flashlightOn);
         }
+
+        public bool FlashlightOn()
+        {
+            return _flashlightOn;
+        }
     }
 }
