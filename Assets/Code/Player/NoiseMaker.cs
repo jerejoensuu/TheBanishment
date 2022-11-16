@@ -18,6 +18,7 @@ namespace Code.Player
         public bool isHiding = false;
         [SerializeField] private bool isMoving = false;
         [SerializeField] private bool enemyIsClose = false;
+        [SerializeField] private bool enemyIsFar = false;
 
         private Vector3 lastPosition;
         public Vector3 noisePosition;
@@ -38,7 +39,7 @@ namespace Code.Player
 
         private void Update()
         {
-            enemyIsClose = CheckEnemyDistance();
+            CheckEnemyDistance();
 
             isMoving = transform.position != lastPosition;
 
@@ -83,6 +84,11 @@ namespace Code.Player
                         multiplier *= 2;
                     }
 
+                    if (enemyIsFar)
+                    {
+                        multiplier *= 0.5f;
+                    }
+
                     noiseMeter += (noisePerSecond * multiplier) / 10f;
                 }
             }
@@ -99,23 +105,28 @@ namespace Code.Player
             tickDone = true;
         }
 
-        private bool CheckEnemyDistance()
+        private void CheckEnemyDistance()
         {
-            bool distanceCheck;
-
             Vector3 offset = enemy.transform.position - transform.position;
             float distanceSquared = offset.sqrMagnitude;
 
-            if (distanceSquared < noiseRange * noiseRange)
+            if (distanceSquared < noiseRange)
             {
-                distanceCheck = true;
+                enemyIsClose = true;
             }
             else
             {
-                distanceCheck = false;
+                enemyIsClose = false;
             }
 
-            return distanceCheck;
+            if (distanceSquared > noiseRange*4)
+            {
+                enemyIsFar = true;
+            }
+            else
+            {
+                enemyIsFar = false;
+            }
         }
 
         private IEnumerator SavePosition()
