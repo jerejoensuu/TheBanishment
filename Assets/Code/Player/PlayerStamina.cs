@@ -16,6 +16,7 @@ namespace Code.Player
 
         [SerializeField] private float staminaDrain;
         [SerializeField] private float staminaRegen;
+        [SerializeField] private float cooldownTime;
 
         public bool outOfStamina = false;
         private bool tickDone = true;
@@ -60,7 +61,9 @@ namespace Code.Player
             outOfStamina = true;
             barFill.color = Color.red;
             staminaRegen = 1;
-            yield return new WaitForSeconds(5f);
+
+            yield return new WaitForSeconds(cooldownTime);
+            
             staminaRegen = 2;
             barFill.color = Color.green;
             outOfStamina = false;

@@ -167,6 +167,7 @@ GameObject:
   - component: {fileID: 8166539168465542801}
   - component: {fileID: 8166539168465542892}
   - component: {fileID: 8166539168465542800}
+  - component: {fileID: 2000455484}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -220,6 +221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   headCam: {fileID: 8166539170221049439}
+  stamina: {fileID: 2000455484}
   walkSpeed: 6
   runSpeed: 9
   sneakSpeed: 1
@@ -289,6 +291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a191d75a6b4a0e242b91f9671f711144, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stamina: {fileID: 2000455484}
 --- !u!114 &8166539168465542800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -319,6 +322,25 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &2000455484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8166539168465542811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f85a35d3a44cd24488dd675d7abe5b52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fpsMov: {fileID: 8166539168465542802}
+  staminaBar: {fileID: 0}
+  barFill: {fileID: 0}
+  staminaDrain: 3
+  staminaRegen: 2
+  cooldownTime: 0
+  outOfStamina: 0
 --- !u!1 &8166539170213725747
 GameObject:
   m_ObjectHideFlags: 0

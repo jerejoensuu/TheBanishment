@@ -2305,30 +2305,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1084747641, guid: baf896f95a5bead448c2f8db1f762866, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1084747641, guid: baf896f95a5bead448c2f8db1f762866, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1084747641, guid: baf896f95a5bead448c2f8db1f762866, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1302046715, guid: baf896f95a5bead448c2f8db1f762866, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1302046715, guid: baf896f95a5bead448c2f8db1f762866, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1368297834, guid: baf896f95a5bead448c2f8db1f762866, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1346751879672024127, guid: baf896f95a5bead448c2f8db1f762866, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -2376,10 +2352,6 @@ PrefabInstance:
     - target: {fileID: 2957291459555370454, guid: baf896f95a5bead448c2f8db1f762866, type: 3}
       propertyPath: m_Name
       value: UI
-      objectReference: {fileID: 0}
-    - target: {fileID: 6527480701676813758, guid: baf896f95a5bead448c2f8db1f762866, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: baf896f95a5bead448c2f8db1f762866, type: 3}
@@ -2458,6 +2430,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2000455484, guid: 427c25991c1f37041954b1cfa967ad12, type: 3}
+      propertyPath: barFill
+      value: 
+      objectReference: {fileID: 1302046716}
+    - target: {fileID: 2000455484, guid: 427c25991c1f37041954b1cfa967ad12, type: 3}
+      propertyPath: staminaBar
+      value: 
+      objectReference: {fileID: 246512835}
     - target: {fileID: 6595551177337338761, guid: 427c25991c1f37041954b1cfa967ad12, type: 3}
       propertyPath: enemy
       value: 
@@ -2470,10 +2450,6 @@ PrefabInstance:
       propertyPath: noiseBar
       value: 
       objectReference: {fileID: 205601352}
-    - target: {fileID: 8166539168465542802, guid: 427c25991c1f37041954b1cfa967ad12, type: 3}
-      propertyPath: stamina
-      value: 
-      objectReference: {fileID: 2000455484}
     - target: {fileID: 8166539168465542807, guid: 427c25991c1f37041954b1cfa967ad12, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -2522,46 +2498,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 8166539168465542892, guid: 427c25991c1f37041954b1cfa967ad12, type: 3}
-      propertyPath: stamina
-      value: 
-      objectReference: {fileID: 2000455484}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 427c25991c1f37041954b1cfa967ad12, type: 3}
---- !u!1 &2000455482 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8166539168465542811, guid: 427c25991c1f37041954b1cfa967ad12, type: 3}
-  m_PrefabInstance: {fileID: 2000455481}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2000455483 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8166539168465542802, guid: 427c25991c1f37041954b1cfa967ad12, type: 3}
-  m_PrefabInstance: {fileID: 2000455481}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2000455482}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2d6cff63de625247832534c31eba5a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2000455484
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2000455482}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f85a35d3a44cd24488dd675d7abe5b52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fpsMov: {fileID: 2000455483}
-  staminaBar: {fileID: 246512835}
-  barFill: {fileID: 1302046716}
-  staminaDrain: 3
-  staminaRegen: 2
-  outOfStamina: 0
 --- !u!1 &2020922038 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -6499529959314878404, guid: 3f0bb47f8ecc06b4d903ab4c9649ca5f, type: 3}
