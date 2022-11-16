@@ -45,12 +45,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   noiseMeter: 0
-  noiseRange: 10
+  noiseRange: 200
   noisePerSecond: 5
   noiseDecay: 25
   isHiding: 0
   isMoving: 0
   enemyIsClose: 0
+  enemyIsFar: 0
   noisePosition: {x: 0, y: 0, z: 0}
   alertValue: 60
   enemy: {fileID: 0}

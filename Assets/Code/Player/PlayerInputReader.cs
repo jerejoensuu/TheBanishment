@@ -7,6 +7,8 @@ namespace Code.Player
 {
     public class PlayerInputReader : MonoBehaviour
     {
+        [SerializeField] private PlayerStamina stamina;
+
         private PlayerController _player;
 
         private PlayerInputActions _inputs;
@@ -44,7 +46,10 @@ namespace Code.Player
 
         private void ReadRun(InputAction.CallbackContext context)
         {
-            _player.movement.running = context.performed;
+            if (!stamina.outOfStamina)
+            {
+                _player.movement.running = context.performed;
+            }
         }
 
         private void Interact(InputAction.CallbackContext context)

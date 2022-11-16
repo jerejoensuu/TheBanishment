@@ -7,6 +7,7 @@ namespace Code.Player
     {
         private CharacterController _charController;
         public Camera headCam;
+        [SerializeField] private PlayerStamina stamina;
 
         public float walkSpeed = 6.0f;
         public float runSpeed = 9f;
