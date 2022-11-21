@@ -89,6 +89,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Crucifix"",
+                    ""type"": ""Button"",
+                    ""id"": ""802859b9-1c51-409e-a449-2c2fd09a5222"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -375,6 +384,17 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Menu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""02a501fa-d062-4e57-8491-01c1492cfce2"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Crucifix"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -969,6 +989,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Player_Sneak = m_Player.FindAction("Sneak", throwIfNotFound: true);
         m_Player_Flashlight = m_Player.FindAction("Flashlight", throwIfNotFound: true);
         m_Player_Menu = m_Player.FindAction("Menu", throwIfNotFound: true);
+        m_Player_Crucifix = m_Player.FindAction("Crucifix", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1047,6 +1068,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Sneak;
     private readonly InputAction m_Player_Flashlight;
     private readonly InputAction m_Player_Menu;
+    private readonly InputAction m_Player_Crucifix;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1058,6 +1080,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         public InputAction @Sneak => m_Wrapper.m_Player_Sneak;
         public InputAction @Flashlight => m_Wrapper.m_Player_Flashlight;
         public InputAction @Menu => m_Wrapper.m_Player_Menu;
+        public InputAction @Crucifix => m_Wrapper.m_Player_Crucifix;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1088,6 +1111,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Menu.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenu;
                 @Menu.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenu;
                 @Menu.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenu;
+                @Crucifix.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCrucifix;
+                @Crucifix.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCrucifix;
+                @Crucifix.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCrucifix;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1113,6 +1139,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Menu.started += instance.OnMenu;
                 @Menu.performed += instance.OnMenu;
                 @Menu.canceled += instance.OnMenu;
+                @Crucifix.started += instance.OnCrucifix;
+                @Crucifix.performed += instance.OnCrucifix;
+                @Crucifix.canceled += instance.OnCrucifix;
             }
         }
     }
@@ -1276,6 +1305,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnSneak(InputAction.CallbackContext context);
         void OnFlashlight(InputAction.CallbackContext context);
         void OnMenu(InputAction.CallbackContext context);
+        void OnCrucifix(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
