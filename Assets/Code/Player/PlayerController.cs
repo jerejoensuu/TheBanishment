@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using Code.Environment;
 using UnityEngine;
 
@@ -13,10 +15,17 @@ namespace Code.Player
         [SerializeField] private GameObject flashlight;
         private bool _flashlightOn = true;
 
+        [SerializeField] private GameObject crucifix;
+        private CrucifixController crucifixController;
+        [SerializeField] private float crucifixCooldown;
+        [SerializeField] private float crucifixTime;
+        public bool crucifixAvailable = true;
+
         private void Awake()
         {
             movement = GetComponent<FpsMovement>();
             interaction = GetComponent<PlayerInteraction>();
+            crucifixController = crucifix.GetComponent<CrucifixController>();
         }
 
         private void Update()
@@ -34,6 +43,28 @@ namespace Code.Player
         public bool FlashlightOn()
         {
             return _flashlightOn;
+        }
+
+        public void EnableCrucifix()
+        {
+            StartCoroutine(CrucifixActive());
+        }
+
+        private IEnumerator CrucifixActive()
+        {
+            crucifixAvailable = false;
+            crucifixController.SwitchState(true);
+
+            yield return new WaitForSeconds(crucifixTime);
+            
+            crucifixController.SwitchState(false);
+            StartCoroutine(CrucifixCooldown());
+        }
+
+        private IEnumerator CrucifixCooldown()
+        {
+            yield return new WaitForSeconds(crucifixCooldown);
+            crucifixAvailable = true;
         }
     }
 }

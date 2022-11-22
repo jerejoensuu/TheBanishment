@@ -222,7 +222,7 @@ public class EnemyBehaviour : MonoBehaviour
         return seesPlayer;
     }
 
-    IEnumerator Rest(bool interruptable, float changeTime = 0f)
+    public IEnumerator Rest(bool interruptable, float changeTime = 0f)
     {
         int startingState = state;
 
@@ -253,5 +253,10 @@ public class EnemyBehaviour : MonoBehaviour
 
         investigating = false;
         resting = false;
+    }
+
+    public bool IsEnemyResting()
+    {
+        return resting;
     }
 }
