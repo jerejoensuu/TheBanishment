@@ -11,30 +11,52 @@ public class CrucifixController : MonoBehaviour
     [SerializeField] private float sphereDistance;
     [SerializeField] private float stunTime;
 
+    private bool crucifixIsActive = false;
+
+    private RaycastHit hit;
+
+    private Animator animator;
+
     private void Start()
     {
+        animator = GetComponent<Animator>();
+
         if (castCenter == null)
         {
             castCenter = gameObject.GetComponent("CastCenter").transform;
         }
         
-        transform.gameObject.SetActive(false);
+        //transform.gameObject.SetActive(false);
     }
 
     private void Update()
     {
-        RaycastHit hit;
-
-        if (Physics.SphereCast(castCenter.position, sphereRadius, castCenter.forward, out hit, sphereDistance))
+        if (crucifixIsActive)
         {
-            if (hit.collider.gameObject.tag == "Enemy" && enemy.IsEnemyResting() == false)
+            if (Physics.SphereCast(castCenter.position, sphereRadius, castCenter.forward, out hit, sphereDistance))
             {
-                Debug.Log("Hit enemy.");
-                StartCoroutine(enemy.Rest(false, 3));
-            } else if (enemy.IsEnemyResting() == true)
-            {
-                Debug.Log("Enemy already resting.");
+                if (hit.collider.gameObject.tag == "Enemy" && enemy.IsEnemyResting() == false)
+                {
+                    Debug.Log("Hit enemy.");
+                    StartCoroutine(enemy.Rest(false, 3));
+                } else if (enemy.IsEnemyResting() == true)
+                {
+                    Debug.Log("Enemy already resting.");
+                }
             }
+        }
+    }
+
+    public void SwitchState(bool newState)
+    {
+        crucifixIsActive = newState;
+
+        if (crucifixIsActive)
+        {
+            animator.SetTrigger("TakeOut");
+        } else if (!crucifixIsActive)
+        {
+            animator.SetTrigger("PutAway");
         }
     }
 }

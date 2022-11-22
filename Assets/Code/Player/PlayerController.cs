@@ -16,6 +16,7 @@ namespace Code.Player
         private bool _flashlightOn = true;
 
         [SerializeField] private GameObject crucifix;
+        private CrucifixController crucifixController;
         [SerializeField] private float crucifixCooldown;
         [SerializeField] private float crucifixTime;
         public bool crucifixAvailable = true;
@@ -24,6 +25,7 @@ namespace Code.Player
         {
             movement = GetComponent<FpsMovement>();
             interaction = GetComponent<PlayerInteraction>();
+            crucifixController = crucifix.GetComponent<CrucifixController>();
         }
 
         private void Update()
@@ -51,11 +53,11 @@ namespace Code.Player
         private IEnumerator CrucifixActive()
         {
             crucifixAvailable = false;
-            crucifix.SetActive(true);
+            crucifixController.SwitchState(true);
 
             yield return new WaitForSeconds(crucifixTime);
             
-            crucifix.SetActive(false);
+            crucifixController.SwitchState(false);
             StartCoroutine(CrucifixCooldown());
         }
 
