@@ -56,6 +56,57 @@ MonoBehaviour:
   enemy: {fileID: 0}
   noiseBar: {fileID: 0}
   barFill: {fileID: 0}
+--- !u!1 &3489167826840536433
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6306002315160199059}
+  - component: {fileID: 3508605752403477627}
+  m_Layer: 0
+  m_Name: Audio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6306002315160199059
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3489167826840536433}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8166539168465542807}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3508605752403477627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3489167826840536433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74098a4358ee4dcda1b9d7518b391dfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventReference:
+    Guid:
+      Data1: 222813339
+      Data2: 1139647924
+      Data3: 2112798376
+      Data4: -1650629245
+    Path: event:/SoundEffects/Monster/Footsteps
 --- !u!1 &5060421905564943725
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,6 +239,7 @@ Transform:
   - {fileID: 8166539170213725708}
   - {fileID: 8166539170221049432}
   - {fileID: 7842556942432740290}
+  - {fileID: 6306002315160199059}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -205,6 +257,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movement: {fileID: 0}
   interaction: {fileID: 0}
+  playerAudio: {fileID: 0}
   flashlight: {fileID: 5060421905564943725}
 --- !u!114 &8166539168465542802
 MonoBehaviour:

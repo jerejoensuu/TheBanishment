@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{8904b941-4d13-4dcd-9f9f-ea1af8aa40dc}">
+		<property name="assetPath">
+			<value>SoundEffects/Monster/SFX_land.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.43333333333333335</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{e7bb9d1d-10e5-4e58-b831-a692e5e3c84a}</destination>
+		</relationship>
+	</object>
+</objects>
