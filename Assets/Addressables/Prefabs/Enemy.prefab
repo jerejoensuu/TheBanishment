@@ -768,7 +768,6 @@ MonoBehaviour:
   idleMoveSpeed: 3
   alertMoveSpeed: 6
   chaseMoveSpeed: 7.5
-  detectionArea: 0.05
   sightRange: 5
   flashlightSightMultiplier: 2
   alertDuration: 5

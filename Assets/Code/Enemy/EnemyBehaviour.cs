@@ -22,7 +22,7 @@ public class EnemyBehaviour : MonoBehaviour
     private float detectionArea = 0.05f; //The width of the sight area. 0 = 180 degrees, 0.5 = 90 degrees
     public float sightRange;
     [Tooltip("Multiply sight range by n when flashlight is on")] public float flashlightSightMultiplier;
-    [Tooltip("Remains in alert state for n seconds after hearing noise")] public float alertDuration;
+    [Tooltip("Remains in alert state for n seconds after investigating noise")] public float alertDuration;
     [Tooltip("Remains in chase state for n seconds after losing sight of player")] public float chaseDuration;
     private float alertTimeElapsed;
     private float chaseTimeElapsed;
@@ -35,28 +35,40 @@ public class EnemyBehaviour : MonoBehaviour
     private NavMeshAgent agent;
     private NoiseMaker noiseMaker;
     private PlayerController playerController;
+    private PlayerHealth playerHealth;
     public GameObject DestinationIndicator;
 
     private void Start()
     { 
         noiseMaker = player.GetComponentInChildren<NoiseMaker>();
         playerController = player.GetComponent<PlayerController>();
+        playerHealth = player.GetComponent<PlayerHealth>();
         agent = GetComponent<NavMeshAgent>();
 
         alertTimeElapsed = alertDuration;
         chaseTimeElapsed = chaseDuration;
        
-        SetPath(pointsOfInterest[0].position);
+        SetPath(pointsOfInterest[Random.Range(0, pointsOfInterest.Length)].position);
     }
 
     private void Update()
     {
-        if (SightCheck() || Vector3.Distance(transform.position, player.position) < 1.5f) // Chase when player is in sight or touching
+        playerDetected = SightCheck();
+
+        if (playerDetected || Vector3.Distance(transform.position, player.position) < 1.5f) // Chase when player is in sight or touching
         {
             state = 2;
             chaseTimeElapsed = 0f;
-            lastKnownPlayerPosition = player.position;
-            SetPath(player.position);
+            if (noiseMaker.hidingPlace.Count > 0)
+            {
+                lastKnownPlayerPosition = noiseMaker.hidingPlace[0].position;
+                SetPath(lastKnownPlayerPosition);
+            }
+            else
+            {
+                lastKnownPlayerPosition = player.position;
+                SetPath(lastKnownPlayerPosition);
+            }
         }
         else if (noiseMaker.noiseMeter >= noiseMaker.alertValue || state == 2) // Investigate last player position when hearing noise of when losing track of player after chasing
         {
@@ -87,7 +99,7 @@ public class EnemyBehaviour : MonoBehaviour
             state = 0;
         }
 
-        if (agent.hasPath && agent.remainingDistance <= 2f)
+        if (agent.hasPath && ((playerDetected && agent.remainingDistance <= 2f) || agent.remainingDistance <= 1f))
         {
             TargetReached();
         }
@@ -140,6 +152,8 @@ public class EnemyBehaviour : MonoBehaviour
                         }
                     }
 
+                    if (nearestPoint == targetDestination) { Debug.Log("!"); nearestPoint = pointsOfInterest[Random.Range(0, pointsOfInterest.Length)].position; }
+
                     SetPath(nearestPoint);
                     StartCoroutine(Rest(true));
                     break;
@@ -147,10 +161,17 @@ public class EnemyBehaviour : MonoBehaviour
                 case 2: // Attack player, then rest for a while
                     if (!resting)
                     {
-                        Debug.Log("Enemy attacks");
+                        if (noiseMaker.hidingPlace.Count > 0)
+                        {
+                            Debug.Log("Enemy attacks (closet)");
+                        }
+                        else
+                        {
+                            Debug.Log("Enemy attacks");
+                        }
                         SetPath(lastKnownPlayerPosition);
                         StartCoroutine(Rest(false, attackCooldown));
-                        player.GetComponent<PlayerHealth>().TakeDamage(45f);
+                        playerHealth.TakeDamage(45f);
                     }
                     break;
             }
@@ -164,7 +185,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     private bool SightCheck()
     {
-        bool inSight = false;
+        bool seesPlayer = false;
 
         float multiplier = 1f;
         if (playerController.FlashlightOn())
@@ -192,18 +213,19 @@ public class EnemyBehaviour : MonoBehaviour
             {
                 if (hit.transform.gameObject.tag == "Player") // Ray hits player
                 {
-                    inSight = true;
+                    seesPlayer = true;
                 }
             }
 
         }
 
-        playerDetected = inSight;
-        return inSight;
+        return seesPlayer;
     }
 
     IEnumerator Rest(bool interruptable, float changeTime = 0f)
     {
+        int startingState = state;
+
         float time = restTime;
         if (changeTime > 0f)
         {
@@ -214,13 +236,19 @@ public class EnemyBehaviour : MonoBehaviour
 
         for (float timeElapsed = 0f; timeElapsed < time; timeElapsed += Time.deltaTime)
         {
-            yield return new WaitForEndOfFrame();
-            if (interruptable && state > 1)
+            if (!interruptable)
+            {
+                transform.LookAt(player.transform);
+            }
+
+            if (interruptable && state > startingState)
             {
                 resting = false;
                 investigating = false;
                 yield break;
             }
+
+            yield return new WaitForEndOfFrame();
         }
 
         investigating = false;

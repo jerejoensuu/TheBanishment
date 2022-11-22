@@ -17,6 +17,7 @@ namespace Code.Environment
         private PlayerController _player;
         private NavMeshObstacle navObstacle;
         public Transform enemy;
+        public DoorController linkedDoor;
 
         private enum OpeningStyle
         {
@@ -33,27 +34,44 @@ namespace Code.Environment
             _player = FindObjectOfType<PlayerController>();
             noiseMaker = FindObjectOfType<NoiseMaker>();
             navObstacle = GetComponentInChildren<NavMeshObstacle>();
-            navObstacle.carving = _isDoorOpen;
+            if (navObstacle != null) { navObstacle.carving = _isDoorOpen; }
+        }
+
+        public void ChangeDoorState(Transform opener = null)
+        {
+            StartCoroutine(ChangeDoorStateCoroutine(opener));
         }
 
         public void ToggleDoor()
         {
-            StartCoroutine(ChangeDoorState());
+            ChangeDoorState();
+            if (linkedDoor != null)
+            {
+                linkedDoor.ChangeDoorState();
+            }
         }
 
         public void OpenDoor(Transform opener = null)
         {
             if (_isDoorOpen) return;
-            StartCoroutine(ChangeDoorState(opener));
+            ChangeDoorState(opener);
+            if (linkedDoor != null)
+            {
+                linkedDoor.ChangeDoorState(opener);
+            }
         }
 
         public void CloseDoor()
         {
             if (!_isDoorOpen) return;
-            StartCoroutine(ChangeDoorState());
+            ChangeDoorState();
+            if (linkedDoor != null)
+            {
+                linkedDoor.ChangeDoorState();
+            }
         }
 
-        private IEnumerator ChangeDoorState(Transform opener = null)
+        private IEnumerator ChangeDoorStateCoroutine(Transform opener = null)
         {
             Transform hingeTransform = hinge.transform;
             float targetAngle = _isDoorOpen ? 0 : GetDoorOpeningDirection();
@@ -73,7 +91,7 @@ namespace Code.Environment
             hingeTransform.localEulerAngles = new Vector3(0, targetAngle, 0);
 
             _isDoorOpen = !_isDoorOpen;
-            navObstacle.carving = _isDoorOpen;
+            if (navObstacle != null) { navObstacle.carving = _isDoorOpen; }
 
             float GetDoorOpeningDirection()
             {

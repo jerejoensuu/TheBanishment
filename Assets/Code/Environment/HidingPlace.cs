@@ -9,6 +9,7 @@ public class HidingPlace : MonoBehaviour
     private Bounds bounds;
 
     public NoiseMaker noiseMaker;
+    public Transform enemyPosition;
 
     void Start()
     {
@@ -25,15 +26,17 @@ public class HidingPlace : MonoBehaviour
     {
         if (bounds.Contains(noiseMaker.transform.position))
         {
-            if (!noiseMaker.isHiding)
+            if (!noiseMaker.hidingPlace.Contains(this.transform))
             {
-                Debug.Log("Enter");
-                
+                noiseMaker.hidingPlace.Add(this.transform);
             }
-
-            noiseMaker.isHiding = true;
-        } else {
-            noiseMaker.isHiding = false;
+        }
+        else
+        {
+            if (noiseMaker.hidingPlace.Contains(this.transform))
+            {
+                noiseMaker.hidingPlace.Remove(this.transform);
+            }
         }
     }
 }
