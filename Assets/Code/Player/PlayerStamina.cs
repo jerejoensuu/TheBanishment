@@ -58,6 +58,7 @@ namespace Code.Player
 
         private IEnumerator StaminaCooldown()
         {
+            fpsMov.running = false;
             outOfStamina = true;
             barFill.color = Color.red;
             staminaRegen = 1;

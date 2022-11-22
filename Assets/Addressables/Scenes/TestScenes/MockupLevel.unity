@@ -1879,31 +1879,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c81cd2af12c1cd34cb630d75a51609b7, type: 3}
---- !u!1 &1535716793 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1329287844, guid: 427c25991c1f37041954b1cfa967ad12, type: 3}
-  m_PrefabInstance: {fileID: 2000455481}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &1535716796
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1535716793}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: aceaf4aa46e40434680224ebfd9b5fa5, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!4 &1553891254 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5060608059042559976, guid: c81cd2af12c1cd34cb630d75a51609b7, type: 3}
@@ -2502,26 +2477,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1329287845, guid: 427c25991c1f37041954b1cfa967ad12, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.609
-      objectReference: {fileID: 0}
-    - target: {fileID: 1329287845, guid: 427c25991c1f37041954b1cfa967ad12, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1329287845, guid: 427c25991c1f37041954b1cfa967ad12, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 1329287845, guid: 427c25991c1f37041954b1cfa967ad12, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 1329287845, guid: 427c25991c1f37041954b1cfa967ad12, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 90
-      objectReference: {fileID: 0}
     - target: {fileID: 1329287846, guid: 427c25991c1f37041954b1cfa967ad12, type: 3}
       propertyPath: enemy
       value: 
@@ -2534,10 +2489,6 @@ PrefabInstance:
       propertyPath: staminaBar
       value: 
       objectReference: {fileID: 246512835}
-    - target: {fileID: 2000455484, guid: 427c25991c1f37041954b1cfa967ad12, type: 3}
-      propertyPath: cooldownTime
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 6595551177337338761, guid: 427c25991c1f37041954b1cfa967ad12, type: 3}
       propertyPath: enemy
       value: 
