@@ -99,7 +99,7 @@ public class EnemyBehaviour : MonoBehaviour
             state = 0;
         }
 
-        if (agent.hasPath && ((playerDetected && agent.remainingDistance <= 2f) || agent.remainingDistance <= 1f))
+        if (agent.hasPath && agent.remainingDistance <= 2f)
         {
             TargetReached();
         }
