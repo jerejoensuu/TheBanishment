@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class CrucifixController : MonoBehaviour
 {
-    [SerializeField] private GameObject enemy;
+    [SerializeField] private EnemyBehaviour enemy;
     [SerializeField] private Transform castCenter;
 
     [SerializeField] private float sphereRadius;
     [SerializeField] private float sphereDistance;
+    [SerializeField] private float stunTime;
 
     private void Start()
     {
@@ -16,6 +17,8 @@ public class CrucifixController : MonoBehaviour
         {
             castCenter = gameObject.GetComponent("CastCenter").transform;
         }
+        
+        transform.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -24,10 +27,13 @@ public class CrucifixController : MonoBehaviour
 
         if (Physics.SphereCast(castCenter.position, sphereRadius, castCenter.forward, out hit, sphereDistance))
         {
-            if (hit.collider.gameObject.tag == "Enemy")
+            if (hit.collider.gameObject.tag == "Enemy" && enemy.IsEnemyResting() == false)
             {
                 Debug.Log("Hit enemy.");
-                //enemy.Stun();
+                StartCoroutine(enemy.Rest(false, 3));
+            } else if (enemy.IsEnemyResting() == true)
+            {
+                Debug.Log("Enemy already resting.");
             }
         }
     }
