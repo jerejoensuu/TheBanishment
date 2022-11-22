@@ -261,6 +261,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4218286211233545205, guid: 51ba6c61d7899a14493f4debeaea2178, type: 3}
   m_PrefabInstance: {fileID: 2072497071}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &164832828 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4218286211233545203, guid: 51ba6c61d7899a14493f4debeaea2178, type: 3}
+  m_PrefabInstance: {fileID: 2072497071}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 164832824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dee71ce86fb2eac4885e3a1262111e13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &188218840
 GameObject:
   m_ObjectHideFlags: 0
@@ -1805,10 +1816,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f52fa3760309e54ba9dfc973ccdd4a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 164832824}
+  enemy: {fileID: 164832828}
   castCenter: {fileID: 317237471}
   sphereRadius: 0.5
   sphereDistance: 30
+  stunTime: 3
 --- !u!4 &1354143457 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5060608059042559976, guid: c81cd2af12c1cd34cb630d75a51609b7, type: 3}
