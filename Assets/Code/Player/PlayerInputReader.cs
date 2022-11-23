@@ -35,6 +35,9 @@ namespace Code.Player
             _inputs.Player.Flashlight.performed += ToggleFlashlight;
             _inputs.Player.Flashlight.canceled += ToggleFlashlight;
 
+            _inputs.Player.Crucifix.performed += EnableCrucifix;
+            _inputs.Player.Crucifix.canceled += EnableCrucifix;
+
             _inputs.Player.Menu.performed += Escape;
             _inputs.Player.Menu.canceled += Escape;
         }
@@ -70,6 +73,14 @@ namespace Code.Player
             if (context.performed)
             {
                 _player.ToggleFlashlight();
+            }
+        }
+
+        private void EnableCrucifix(InputAction.CallbackContext context)
+        {
+            if (context.performed && _player.crucifixAvailable)
+            {
+                _player.EnableCrucifix();
             }
         }
 
