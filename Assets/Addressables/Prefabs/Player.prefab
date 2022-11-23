@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: fd6801b50c9a05242a78103b4fe0c2a8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -154,7 +154,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1329287844}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.47, y: -0.609, z: 0.3}
+  m_LocalPosition: {x: 0.337, y: -0.609, z: 0.3}
   m_LocalScale: {x: 0.89393, y: 0.89393, z: 0.89393}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -179,7 +179,7 @@ MonoBehaviour:
   enemy: {fileID: 0}
   castCenter: {fileID: 317237471}
   sphereRadius: 0.5
-  sphereDistance: 30
+  sphereDistance: 20
   stunTime: 3
 --- !u!95 &1535716796
 Animator:
@@ -228,8 +228,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1739372581}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.195, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.12, z: 0.09}
+  m_LocalPosition: {x: 0, y: 0.195, z: 0.0003}
+  m_LocalScale: {x: 0.6, y: 0.12, z: 0.089}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1329287845}
@@ -263,7 +263,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: fd6801b50c9a05242a78103b4fe0c2a8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -346,7 +346,7 @@ MonoBehaviour:
   noiseRange: 200
   noisePerSecond: 5
   noiseDecay: 25
-  isHiding: 0
+  hidingPlace: []
   isMoving: 0
   enemyIsClose: 0
   enemyIsFar: 0
@@ -438,7 +438,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
