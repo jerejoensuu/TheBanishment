@@ -11,6 +11,7 @@ namespace Code.Player
     {
         [HideInInspector] public FpsMovement movement;
         [HideInInspector] public PlayerInteraction interaction;
+        [HideInInspector] public PlayerAudio playerAudio;
 
         [SerializeField] private GameObject flashlight;
         private bool _flashlightOn = true;
@@ -25,6 +26,7 @@ namespace Code.Player
         {
             movement = GetComponent<FpsMovement>();
             interaction = GetComponent<PlayerInteraction>();
+            playerAudio = GetComponentInChildren<PlayerAudio>();
             crucifixController = crucifix.GetComponent<CrucifixController>();
         }
 

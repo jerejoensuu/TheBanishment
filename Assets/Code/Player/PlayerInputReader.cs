@@ -73,6 +73,7 @@ namespace Code.Player
             if (context.performed)
             {
                 _player.ToggleFlashlight();
+                _player.playerAudio.Test();
             }
         }
 
