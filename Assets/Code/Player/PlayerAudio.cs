@@ -17,11 +17,11 @@ namespace Code.Player
         
         public void Test()
         {
-            Debug.Log("Click");
-            _audio = RuntimeManager.CreateInstance(eventReference);
-            RuntimeManager.AttachInstanceToGameObject(_audio, GetComponent<Transform>(), GetComponent<Rigidbody>());
-            _audio.start();
-            _audio.release();
+            // Debug.Log("Click");
+            // _audio = RuntimeManager.CreateInstance(eventReference);
+            // RuntimeManager.AttachInstanceToGameObject(_audio, GetComponent<Transform>(), GetComponent<Rigidbody>());
+            // _audio.start();
+            // _audio.release();
         }
     }
 }

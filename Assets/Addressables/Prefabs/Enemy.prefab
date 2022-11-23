@@ -879,18 +879,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ad69690b0498fd4ba20b59ffcbf4eb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EventReference:
+  eventReference:
     Guid:
       Data1: 222813339
       Data2: 1139647924
       Data3: 2112798376
       Data4: -1650629245
     Path: event:/SoundEffects/Monster/Footsteps
-  SoundOcclusionWidening: 1
-  PlayerOcclusionWidening: 1
-  OcclusionLayer:
+  soundOcclusionWidening: 1
+  playerOcclusionWidening: 1
+  occlusionLayer:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 0
 --- !u!1 &5544217318536687697
 GameObject:
   m_ObjectHideFlags: 0
