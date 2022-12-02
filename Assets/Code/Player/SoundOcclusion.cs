@@ -127,5 +127,10 @@ namespace Code.Player
         {
             _audio.setParameterByName("Occlusion", _lineCastHitCount / 11);
         }
+        
+        private void OnDestroy()
+        {
+            _audio.release();
+        }
     }
 }
