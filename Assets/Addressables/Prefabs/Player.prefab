@@ -851,8 +851,8 @@ Camera:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1
-    height: 1
+    width: 1920
+    height: 1080
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -863,7 +863,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
+  m_TargetTexture: {fileID: 8400000, guid: 14ab231f19f1ba04fb5c1ab4f91679ed, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
