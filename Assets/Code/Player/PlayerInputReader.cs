@@ -92,5 +92,28 @@ namespace Code.Player
                 FindObjectOfType<LevelManager>().ResetLevel();
             }
         }
+
+        private void OnDisable()
+        {
+            _inputs.Disable();
+            
+            _inputs.Player.Move.performed -= ReadMovement;
+            _inputs.Player.Move.canceled -= ReadMovement;
+            _inputs.Player.Run.performed -= ReadRun;
+            _inputs.Player.Run.canceled -= ReadRun;
+            _inputs.Player.Fire.performed -= Interact;
+            _inputs.Player.Fire.canceled -= Interact;
+            _inputs.Player.Sneak.performed -= ReadSneak;
+            _inputs.Player.Sneak.canceled -= ReadSneak;
+            
+            _inputs.Player.Flashlight.performed -= ToggleFlashlight;
+            _inputs.Player.Flashlight.canceled -= ToggleFlashlight;
+            
+            _inputs.Player.Crucifix.performed -= EnableCrucifix;
+            _inputs.Player.Crucifix.canceled -= EnableCrucifix;
+            
+            _inputs.Player.Menu.performed -= Escape;
+            _inputs.Player.Menu.canceled -= Escape;
+        }
     }
 }
