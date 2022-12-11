@@ -37,6 +37,7 @@ public class EnemyBehaviour : MonoBehaviour
     private PlayerController playerController;
     private PlayerHealth playerHealth;
     public GameObject DestinationIndicator;
+    public Animator animator;
 
     private void Start()
     { 
@@ -109,6 +110,9 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void SetSpeed()
     {
+        animator.SetBool("isWalking", !resting);
+        animator.SetBool("isStunned", resting);
+        
         if (resting)
         {
             agent.speed = 0f;
@@ -116,16 +120,16 @@ public class EnemyBehaviour : MonoBehaviour
         else switch (state)
         {
             case 0:
-            agent.speed = idleMoveSpeed;
-            break;
+                agent.speed = idleMoveSpeed;
+                break;
 
             case 1:
-            agent.speed = alertMoveSpeed;
-            break;
+                agent.speed = alertMoveSpeed;
+                break;
 
             case 2:
-            agent.speed = chaseMoveSpeed;
-            break;
+                agent.speed = chaseMoveSpeed;
+                break;
         }
     }
 
@@ -206,7 +210,7 @@ public class EnemyBehaviour : MonoBehaviour
             float rayLength = sightRange;
             if (state == 1) { rayLength = sightRange * 2; }
             else if (state == 2) { rayLength = sightRange * 10; }
-            rayLength = rayLength * multiplier;
+            rayLength *= multiplier;
 
             RaycastHit hit;
             if (Physics.Raycast(transform.position, (player.position - transform.position), out hit, rayLength, LayerMask.GetMask("Default"), QueryTriggerInteraction.Ignore)) // Raycast towards player to see if anything's blocking vision
