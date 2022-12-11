@@ -31,18 +31,17 @@ public class CrucifixController : MonoBehaviour
 
     private void Update()
     {
-        if (crucifixIsActive)
+        if (!crucifixIsActive) return;
+        
+        if (Physics.SphereCast(castCenter.position, sphereRadius, castCenter.forward, out hit, sphereDistance))
         {
-            if (Physics.SphereCast(castCenter.position, sphereRadius, castCenter.forward, out hit, sphereDistance))
+            if (hit.collider.gameObject.CompareTag("Enemy") && enemy.IsEnemyResting() == false)
             {
-                if (hit.collider.gameObject.tag == "Enemy" && enemy.IsEnemyResting() == false)
-                {
-                    Debug.Log("Hit enemy.");
-                    StartCoroutine(enemy.Rest(false, 3));
-                } else if (enemy.IsEnemyResting() == true)
-                {
-                    Debug.Log("Enemy already resting.");
-                }
+                Debug.Log("Hit enemy.");
+                StartCoroutine(enemy.Rest(false, 3, true));
+            } else if (enemy.IsEnemyResting())
+            {
+                Debug.Log("Enemy already resting.");
             }
         }
     }
