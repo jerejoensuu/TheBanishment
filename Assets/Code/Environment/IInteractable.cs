@@ -7,6 +7,8 @@ namespace Code.Environment
         bool IsCurrentlyInteractable();
 
         string LookAtText();
+        void EnableHoverEffect();
+        void DisableHoverEffect();
 
         void Interact();
     }
