@@ -111,8 +111,7 @@ public class EnemyBehaviour : MonoBehaviour
     private void SetSpeed()
     {
         animator.SetBool("isWalking", !resting);
-        animator.SetBool("isStunned", resting);
-        
+
         if (resting)
         {
             agent.speed = 0f;
@@ -226,8 +225,9 @@ public class EnemyBehaviour : MonoBehaviour
         return seesPlayer;
     }
 
-    public IEnumerator Rest(bool interruptable, float changeTime = 0f)
+    public IEnumerator Rest(bool interruptable, float changeTime = 0f, bool stunned = false)
     {
+        if (stunned) animator.SetBool("isStunned", true);
         int startingState = state;
 
         float time = restTime;
@@ -257,6 +257,7 @@ public class EnemyBehaviour : MonoBehaviour
 
         investigating = false;
         resting = false;
+        animator.SetBool("isStunned", false);
     }
 
     public bool IsEnemyResting()
