@@ -41,8 +41,7 @@ namespace Code.Player
                 {
                     if (triggerCollider.isTrigger)
                     {
-                        _viewedObject = null;
-                        SetLookAtText("");
+                        ResetViewedObject();
                         return;
                     }
                 }
@@ -51,6 +50,15 @@ namespace Code.Player
             }
             else
             {
+                ResetViewedObject();
+            }
+        }
+        
+        private void ResetViewedObject()
+        {
+            if (_viewedObject != null)
+            {
+                _viewedObject.DisableHoverEffect();
                 _viewedObject = null;
                 SetLookAtText("");
             }
@@ -59,6 +67,7 @@ namespace Code.Player
         public void ViewedItemHover()
         {
             if (_viewedObject == null) return;
+            _viewedObject.EnableHoverEffect();
             SetLookAtText(_viewedObject.LookAtText());
         }
 

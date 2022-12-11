@@ -102,6 +102,10 @@ namespace Code.Environment
             return IsCurrentlyInteractable() ? "Exit level" : "\"I can't leave yet\"";
         }
 
+        public void EnableHoverEffect() { }
+
+        public void DisableHoverEffect() { }
+
         public void Interact()
         {
             OpenDoor();

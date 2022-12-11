@@ -7,10 +7,12 @@ namespace Code.Environment
     {
         private LevelManager _levelManager;
         private bool _collected;
+        public Outline outline;
 
         private void Start()
         {
             _levelManager = FindObjectOfType<LevelManager>();
+            DisableHoverEffect();
         }
 
         private void Collect()
@@ -29,6 +31,22 @@ namespace Code.Environment
         public string LookAtText()
         {
             return "Pick up";
+        }
+
+        public void EnableHoverEffect()
+        {
+            SetOutline(true);
+        }
+
+        public void DisableHoverEffect()
+        {
+            SetOutline(false);
+        }
+        
+        private void SetOutline(bool active)
+        {
+            if (outline == null) return;
+            outline.enabled = active;
         }
 
         public void Interact()

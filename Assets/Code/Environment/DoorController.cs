@@ -135,6 +135,9 @@ namespace Code.Environment
             return _isDoorOpen ? "Close door" : "Open door";
         }
 
+        public void EnableHoverEffect() { }
+        public void DisableHoverEffect() { }
+
         public void Interact()
         {
             if (enemy != null) return;
