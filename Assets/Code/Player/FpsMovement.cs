@@ -79,17 +79,23 @@ namespace Code.Player
 
         private void RotateCharacter()
         {
-            transform.Rotate(0, Input.GetAxis("Mouse X") * sensitivityHor, 0);
+            if (!MenuManager.gamePaused)
+            {
+                transform.Rotate(0, Input.GetAxis("Mouse X") * sensitivityHor, 0);
+            }
         }
 
         private void RotateCamera()
         {
-            rotationVert -= Input.GetAxis("Mouse Y") * sensitivityVert;
-            rotationVert = Mathf.Clamp(rotationVert, minimumVert, maximumVert);
+            if (!MenuManager.gamePaused)
+            {
+                rotationVert -= Input.GetAxis("Mouse Y") * sensitivityVert;
+                rotationVert = Mathf.Clamp(rotationVert, minimumVert, maximumVert);
 
-            headCam.transform.localEulerAngles = new Vector3(
-                rotationVert, headCam.transform.localEulerAngles.y, 0
-            );
+                headCam.transform.localEulerAngles = new Vector3(
+                    rotationVert, headCam.transform.localEulerAngles.y, 0
+                );
+            }
         }
 
         public Vector3 GetVelocity()
