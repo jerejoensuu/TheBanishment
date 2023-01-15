@@ -8,6 +8,7 @@ namespace Code.Player
     public class PlayerInputReader : MonoBehaviour
     {
         [SerializeField] private PlayerStamina stamina;
+        [SerializeField] private MenuManager menuManager;
 
         private PlayerController _player;
 
@@ -38,8 +39,11 @@ namespace Code.Player
             _inputs.Player.Crucifix.performed += EnableCrucifix;
             _inputs.Player.Crucifix.canceled += EnableCrucifix;
 
-            _inputs.Player.Menu.performed += Escape;
-            _inputs.Player.Menu.canceled += Escape;
+            _inputs.Player.Reset.performed += Reset;
+            _inputs.Player.Reset.canceled += Reset;
+
+            _inputs.Player.Menu.performed += Menu;
+            _inputs.Player.Menu.canceled += Menu;
         }
 
         private void ReadMovement(InputAction.CallbackContext context)
@@ -85,11 +89,19 @@ namespace Code.Player
             }
         }
 
-        private void Escape(InputAction.CallbackContext context)
+        private void Reset(InputAction.CallbackContext context)
         {
             if (context.performed)
             {
                 FindObjectOfType<LevelManager>().ResetLevel();
+            }
+        }
+
+        private void Menu(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+            {
+                menuManager.PauseGame();
             }
         }
 
@@ -112,8 +124,11 @@ namespace Code.Player
             _inputs.Player.Crucifix.performed -= EnableCrucifix;
             _inputs.Player.Crucifix.canceled -= EnableCrucifix;
             
-            _inputs.Player.Menu.performed -= Escape;
-            _inputs.Player.Menu.canceled -= Escape;
+            _inputs.Player.Menu.performed -= Reset;
+            _inputs.Player.Menu.canceled -= Reset;
+
+            _inputs.Player.Menu.performed -= Menu;
+            _inputs.Player.Menu.canceled -= Menu;
         }
     }
 }
