@@ -66622,6 +66622,10 @@ PrefabInstance:
       propertyPath: noiseBar
       value: 
       objectReference: {fileID: 205601352}
+    - target: {fileID: 8166539168465542801, guid: 427c25991c1f37041954b1cfa967ad12, type: 3}
+      propertyPath: m_StepOffset
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8166539168465542807, guid: 427c25991c1f37041954b1cfa967ad12, type: 3}
       propertyPath: m_RootOrder
       value: 8
