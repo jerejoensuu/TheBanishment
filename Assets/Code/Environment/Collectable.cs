@@ -1,5 +1,6 @@
 ﻿using Code.Level;
 using UnityEngine;
+using Code.Player;
 
 namespace Code.Environment
 {
@@ -9,6 +10,9 @@ namespace Code.Environment
         private bool _collected;
         public Outline outline;
 
+        [SerializeField] private PlayerController player;
+        [SerializeField] private bool isCrucifix = false;
+
         private void Start()
         {
             _levelManager = FindObjectOfType<LevelManager>();
@@ -17,7 +21,14 @@ namespace Code.Environment
 
         private void Collect()
         {
-            _levelManager.AddCollectable();
+            if (!isCrucifix)
+            {
+                _levelManager.AddCollectable();
+            } else 
+            {
+                player.AddCrucifix();
+            }
+
             _collected = true;
             // TODO: Play sound before destroying
             Destroy(gameObject);
