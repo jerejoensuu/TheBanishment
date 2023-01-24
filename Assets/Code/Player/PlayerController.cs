@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Code.Environment;
 using UnityEngine;
+using TMPro;
 
 namespace Code.Player
 {
@@ -22,6 +23,7 @@ namespace Code.Player
         [SerializeField] private float crucifixTime;
         private bool offCooldown = true;
         [SerializeField] private int crucifixAmount;
+        [SerializeField] private TextMeshProUGUI crucifixText; 
 
         private void Awake()
         {
@@ -29,6 +31,8 @@ namespace Code.Player
             interaction = GetComponent<PlayerInteraction>();
             playerAudio = GetComponentInChildren<PlayerAudio>();
             crucifixController = crucifix.GetComponent<CrucifixController>();
+
+            UpdateCrucifixText();
         }
 
         private void Update()
@@ -56,6 +60,7 @@ namespace Code.Player
         private IEnumerator CrucifixActive()
         {
             crucifixAmount--;
+            UpdateCrucifixText();
             offCooldown = false;
             crucifixController.SwitchState(true);
 
@@ -77,6 +82,7 @@ namespace Code.Player
             {
                 crucifixAmount++;
             }
+            UpdateCrucifixText();
         }
 
         public bool CrucifixCheck()
@@ -89,6 +95,11 @@ namespace Code.Player
             }
 
             return (isAvailable);
+        }
+
+        private void UpdateCrucifixText()
+        {
+            crucifixText.text = crucifixAmount.ToString();
         }
     }
 }
