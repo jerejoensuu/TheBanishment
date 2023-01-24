@@ -83,7 +83,7 @@ namespace Code.Player
 
         private void EnableCrucifix(InputAction.CallbackContext context)
         {
-            if (context.performed && _player.crucifixAvailable)
+            if (context.performed && _player.CrucifixCheck())
             {
                 _player.EnableCrucifix();
             }

@@ -654,9 +654,9 @@ MonoBehaviour:
   playerAudio: {fileID: 0}
   flashlight: {fileID: 5060421905564943725}
   crucifix: {fileID: 1329287844}
-  crucifixCooldown: 25
+  crucifixCooldown: 10
   crucifixTime: 5
-  crucifixAvailable: 1
+  crucifixAmount: 1
 --- !u!114 &8166539168465542802
 MonoBehaviour:
   m_ObjectHideFlags: 0

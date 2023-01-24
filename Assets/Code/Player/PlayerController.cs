@@ -20,14 +20,11 @@ namespace Code.Player
         private CrucifixController crucifixController;
         [SerializeField] private float crucifixCooldown;
         [SerializeField] private float crucifixTime;
-        public bool crucifixAvailable;
         private bool offCooldown = true;
         [SerializeField] private int crucifixAmount;
 
         private void Awake()
         {
-            crucifixAvailable = CrucifixCheck();
-
             movement = GetComponent<FpsMovement>();
             interaction = GetComponent<PlayerInteraction>();
             playerAudio = GetComponentInChildren<PlayerAudio>();
@@ -60,7 +57,6 @@ namespace Code.Player
         {
             crucifixAmount--;
             offCooldown = false;
-            crucifixAvailable = false;
             crucifixController.SwitchState(true);
 
             yield return new WaitForSeconds(crucifixTime);
@@ -73,7 +69,6 @@ namespace Code.Player
         {
             yield return new WaitForSeconds(crucifixCooldown);
             offCooldown = true;
-            crucifixAvailable = CrucifixCheck();
         }
 
         public void AddCrucifix()
@@ -82,8 +77,6 @@ namespace Code.Player
             {
                 crucifixAmount++;
             }
-
-            crucifixAvailable = CrucifixCheck();
         }
 
         public bool CrucifixCheck()
