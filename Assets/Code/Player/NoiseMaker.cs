@@ -39,8 +39,6 @@ namespace Code.Player
 
         private void Update()
         {
-            if (Input.GetKeyDown("n")) { Debug.Log("Delete this"); noiseMeter = 60; }
-
             CheckEnemyDistance();
 
             isMoving = transform.position != lastPosition;
