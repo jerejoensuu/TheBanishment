@@ -15,7 +15,7 @@ namespace Code.Player
 
         private bool tickDone;
         private bool saveDone;
-        public List<Transform> hidingPlace = new List<Transform>();
+        public HidingPlace hidingPlace;
         [SerializeField] private bool isMoving = false;
         [SerializeField] private bool enemyIsClose = false;
         [SerializeField] private bool enemyIsFar = false;
@@ -39,11 +39,7 @@ namespace Code.Player
 
         private void Update()
         {
-            if (Input.GetKeyDown("n"))
-            {
-                Debug.Log("Delete this");
-                noiseMeter = 60;
-            }
+            if (Input.GetKeyDown("n")) { Debug.Log("Delete this"); noiseMeter = 60; }
 
             CheckEnemyDistance();
 
@@ -54,7 +50,7 @@ namespace Code.Player
                 StartCoroutine(TickMeter());
             }
 
-            if (saveDone && hidingPlace.Count == 0)
+            if (saveDone && hidingPlace == null)
             {
                 StartCoroutine(SavePosition());
             }

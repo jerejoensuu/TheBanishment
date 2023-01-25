@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 188218844}
   - component: {fileID: 188218843}
   - component: {fileID: 188218842}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: VerticalBeam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 317237471}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CastCenter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 1329287845}
   - component: {fileID: 1329287846}
   - component: {fileID: 1535716796}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Crucifix
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -213,7 +213,7 @@ GameObject:
   - component: {fileID: 1739372585}
   - component: {fileID: 1739372584}
   - component: {fileID: 1739372583}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: HorizontalBeam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -308,7 +308,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7842556942432740290}
   - component: {fileID: 6595551177337338761}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: NoiseMaker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -365,7 +365,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6306002315160199059}
   - component: {fileID: 3508605752403477627}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Audio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -416,7 +416,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5971790055484407598}
   - component: {fileID: 8476105445088913802}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Flashlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -679,6 +679,7 @@ MonoBehaviour:
   sensitivityVert: 2
   minimumVert: -45
   maximumVert: 45
+  cameraHeight: 0.488
   running: 0
   sneaking: 0
 --- !u!114 &5709465566458850013
@@ -803,7 +804,7 @@ GameObject:
   - component: {fileID: 8166539170213725711}
   - component: {fileID: 8166539170213725710}
   - component: {fileID: 8166539170213725709}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Model
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -901,7 +902,7 @@ GameObject:
   - component: {fileID: 8166539170221049439}
   - component: {fileID: 7465309525395082706}
   - component: {fileID: 6275663136953560868}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}

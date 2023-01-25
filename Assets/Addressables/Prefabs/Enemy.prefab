@@ -61,6 +61,8 @@ MonoBehaviour:
   alertDuration: 5
   chaseDuration: 1
   attackCooldown: 1.5
+  throwAttack: 0
+  throwDuration: 0.33
   player: {fileID: 0}
   pointsOfInterest:
   - {fileID: 0}

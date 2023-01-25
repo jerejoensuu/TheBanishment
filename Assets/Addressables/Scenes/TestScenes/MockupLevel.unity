@@ -3756,7 +3756,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 864315615}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 50, y: 0, z: -100}
+  m_LocalPosition: {x: 50, y: 1, z: -100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -71281,10 +71281,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 188218840, guid: 427c25991c1f37041954b1cfa967ad12, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 317237470, guid: 427c25991c1f37041954b1cfa967ad12, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1329287844, guid: 427c25991c1f37041954b1cfa967ad12, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1329287846, guid: 427c25991c1f37041954b1cfa967ad12, type: 3}
       propertyPath: enemy
       value: 
       objectReference: {fileID: 164832828}
+    - target: {fileID: 1739372581, guid: 427c25991c1f37041954b1cfa967ad12, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2000455484, guid: 427c25991c1f37041954b1cfa967ad12, type: 3}
       propertyPath: barFill
       value: 
@@ -71293,6 +71309,18 @@ PrefabInstance:
       propertyPath: staminaBar
       value: 
       objectReference: {fileID: 246512835}
+    - target: {fileID: 2398238693562337062, guid: 427c25991c1f37041954b1cfa967ad12, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3489167826840536433, guid: 427c25991c1f37041954b1cfa967ad12, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5060421905564943725, guid: 427c25991c1f37041954b1cfa967ad12, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6595551177337338761, guid: 427c25991c1f37041954b1cfa967ad12, type: 3}
       propertyPath: enemy
       value: 

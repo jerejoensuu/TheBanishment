@@ -28,6 +28,8 @@ public class EnemyBehaviour : MonoBehaviour
     private float chaseTimeElapsed;
     private bool investigating = false;
     [Tooltip("Enemy takes a break for n seconds after attacking the player")] public float attackCooldown;
+    public bool throwAttack = false;
+    public float throwDuration;
 
     [Header("Objects")]
     public Transform player;
@@ -60,12 +62,8 @@ public class EnemyBehaviour : MonoBehaviour
         {
             state = 2;
             chaseTimeElapsed = 0f;
-            if (noiseMaker.hidingPlace.Count > 0)
-            {
-                lastKnownPlayerPosition = noiseMaker.hidingPlace[0].position;
-                SetPath(lastKnownPlayerPosition);
-            }
-            else
+
+            if (noiseMaker.hidingPlace == null)
             {
                 lastKnownPlayerPosition = player.position;
                 SetPath(lastKnownPlayerPosition);
@@ -78,6 +76,16 @@ public class EnemyBehaviour : MonoBehaviour
             alertTimeElapsed = 0f;
             lastKnownPlayerPosition = noiseMaker.noisePosition;
             SetPath(lastKnownPlayerPosition);
+        }
+
+        if (noiseMaker.hidingPlace != null && state == 2)
+        {
+            throwAttack = true;
+            SetPath(noiseMaker.hidingPlace.enemyPosition.position);
+        }
+        if (noiseMaker.hidingPlace == null)
+        {
+            throwAttack = false;
         }
 
         if (chaseTimeElapsed < chaseDuration) // Remain in chase state for a short duration when losing sight
@@ -164,9 +172,10 @@ public class EnemyBehaviour : MonoBehaviour
                 case 2: // Attack player, then rest for a while
                     if (!resting)
                     {
-                        if (noiseMaker.hidingPlace.Count > 0)
+                        if (throwAttack)
                         {
                             Debug.Log("Enemy attacks (closet)");
+                            StartCoroutine(ThrowPlayer(noiseMaker.hidingPlace.playerThrowPosition.position));                          
                         }
                         else
                         {
@@ -219,10 +228,26 @@ public class EnemyBehaviour : MonoBehaviour
                     seesPlayer = true;
                 }
             }
-
         }
 
         return seesPlayer;
+    }
+
+    public IEnumerator ThrowPlayer(Vector3 targetPosition)
+    {
+        targetPosition.y = player.position.y;
+        Vector3 startingPosition = player.position;
+        float timeElapsed = 0f;
+
+        while (timeElapsed < throwDuration)
+        {
+            player.position = Vector3.Lerp(startingPosition, targetPosition, timeElapsed / throwDuration);
+            Physics.SyncTransforms();
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+        player.position = targetPosition;
+        Physics.SyncTransforms();
     }
 
     public IEnumerator Rest(bool interruptable, float changeTime = 0f, bool stunned = false)

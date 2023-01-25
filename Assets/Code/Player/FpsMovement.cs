@@ -24,6 +24,7 @@ namespace Code.Player
         public float maximumVert = 45.0f;
 
         private float rotationVert = 0;
+        public float cameraHeight = 0.488f;
 
         private Vector3 _movementInput;
         [HideInInspector] public bool running;
@@ -54,7 +55,7 @@ namespace Code.Player
                 Speed = walkSpeed;
             }
 
-            cameraStartPos = new Vector3(transform.position.x, transform.position.y + 0.488f, transform.position.z);
+            cameraStartPos = new Vector3(transform.position.x, transform.position.y + cameraHeight, transform.position.z);
         }
 
         public void ReceiveInput(Vector2 movementInput)

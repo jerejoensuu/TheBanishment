@@ -10,9 +10,13 @@ public class HidingPlace : MonoBehaviour
 
     public NoiseMaker noiseMaker;
     public Transform enemyPosition;
+    public Transform playerThrowPosition;
+    private EnemyBehaviour enemy;
 
     void Start()
     {
+        enemy = FindObjectOfType<EnemyBehaviour>();
+
         if (noiseMaker == null)
         {
             noiseMaker = FindObjectOfType<NoiseMaker>();
@@ -26,16 +30,16 @@ public class HidingPlace : MonoBehaviour
     {
         if (bounds.Contains(noiseMaker.transform.position))
         {
-            if (!noiseMaker.hidingPlace.Contains(this.transform))
+            if (noiseMaker.hidingPlace == null)
             {
-                noiseMaker.hidingPlace.Add(this.transform);
+                noiseMaker.hidingPlace = this;
             }
         }
         else
         {
-            if (noiseMaker.hidingPlace.Contains(this.transform))
+            if (noiseMaker.hidingPlace == this)
             {
-                noiseMaker.hidingPlace.Remove(this.transform);
+                noiseMaker.hidingPlace = null;
             }
         }
     }
