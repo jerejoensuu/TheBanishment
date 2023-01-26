@@ -2,6 +2,7 @@
 using Code.Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 namespace Code.Level
 {
@@ -13,6 +14,8 @@ namespace Code.Level
         [SerializeField] private int collectablesNeeded;
 
         [SerializeField] private int collectablesInPossession;
+
+        [SerializeField] private TextMeshProUGUI candleText; 
 
         public int CollectablesInPossession
         {
@@ -28,11 +31,13 @@ namespace Code.Level
         {
             _player = FindObjectOfType<PlayerController>();
             collectablesInPossession = 0;
+            UpdateText();
         }
 
         public void AddCollectable()
         {
             CollectablesInPossession++;
+            UpdateText();
         }
 
         public void ResetLevel()
@@ -43,6 +48,11 @@ namespace Code.Level
         public void EndLevel()
         {
             ResetLevel();
+        }
+
+        private void UpdateText()
+        {
+            candleText.text = CollectablesInPossession.ToString() + "/" + collectablesNeeded.ToString();
         }
     }
 }
