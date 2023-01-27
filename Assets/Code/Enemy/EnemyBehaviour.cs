@@ -88,27 +88,30 @@ public class EnemyBehaviour : MonoBehaviour
             throwAttack = false;
         }
 
-        if (chaseTimeElapsed < chaseDuration) // Remain in chase state for a short duration when losing sight
+        if (!throwAttack)
         {
-            chaseTimeElapsed += Time.deltaTime;
-            lastKnownPlayerPosition = player.position;
-            SetPath(lastKnownPlayerPosition);
-            state = 2;
-        }
-        else if (alertTimeElapsed < alertDuration)
-        {
-            if (!investigating) // Start counting down from alert state after investigating noise position
+            if (chaseTimeElapsed < chaseDuration) // Remain in chase state for a short duration when losing sight
             {
-                alertTimeElapsed += Time.deltaTime;
+                chaseTimeElapsed += Time.deltaTime;
+                lastKnownPlayerPosition = player.position;
+                SetPath(lastKnownPlayerPosition);
+                state = 2;
             }
-            state = 1;
-        }
-        else
-        {
-            state = 0;
+            else if (alertTimeElapsed < alertDuration)
+            {
+                if (!investigating) // Start counting down from alert state after investigating noise position
+                {
+                    alertTimeElapsed += Time.deltaTime;
+                }
+                state = 1;
+            }
+            else
+            {
+                state = 0;
+            }
         }
 
-        if (agent.hasPath && agent.remainingDistance <= 2f)
+        if (agent.hasPath && ((agent.remainingDistance <= 2f && !throwAttack) || (agent.remainingDistance <= 0.5f && throwAttack)))
         {
             TargetReached();
         }
