@@ -3,7 +3,17 @@ guid: 3959b35aa749573478236156de11b53f
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Black knitted cotton
+    second: {fileID: 2100000, guid: 3f1fd45b82b7a8340ad3d6cbc95efd8e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mahogany Wood
+    second: {fileID: 2100000, guid: fd6801b50c9a05242a78103b4fe0c2a8, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
