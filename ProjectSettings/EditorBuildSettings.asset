@@ -11,5 +11,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Addressables/Scenes/TestScenes/MockupLevel.unity
     guid: 75c453630e38d5f42baf84eccf3f3cc0
+  - enabled: 1
+    path: Assets/Addressables/Scenes/TestScenes/BasementLevel.unity
+    guid: 1083a27df26188445991f85fe755d38d
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: dc6a27d42d394ff41bd4bfe382be2fde, type: 2}

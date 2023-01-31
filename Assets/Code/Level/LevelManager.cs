@@ -1,5 +1,6 @@
 ﻿using System;
 using Code.Player;
+using Code.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
@@ -9,40 +10,37 @@ namespace Code.Level
     public class LevelManager : MonoBehaviour
     {
         private PlayerController _player;
-        public bool WinningConditionsMet { get; private set; }
+        private UIManager _uiManager;
+        public bool WinningConditionsMet => CollectablesInPossession >= collectablesNeeded;
 
         [SerializeField] private int collectablesNeeded;
 
         [SerializeField] private int collectablesInPossession;
-
-        [SerializeField] private TextMeshProUGUI candleText; 
-
         public int CollectablesInPossession
         {
             get => collectablesInPossession;
             set
             {
                 collectablesInPossession = value;
-                WinningConditionsMet = collectablesInPossession >= collectablesNeeded;
             }
         }
 
         private void Start()
         {
             _player = FindObjectOfType<PlayerController>();
-            collectablesInPossession = 0;
-            UpdateText();
+            _uiManager = FindObjectOfType<UIManager>();
+            UpdateUI();
         }
 
         public void AddCollectable()
         {
             CollectablesInPossession++;
-            UpdateText();
+            UpdateUI();
         }
 
         public void ResetLevel()
         {
-            SceneManager.LoadScene("MockupLevel");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
         public void EndLevel()
@@ -50,9 +48,9 @@ namespace Code.Level
             ResetLevel();
         }
 
-        private void UpdateText()
+        private void UpdateUI()
         {
-            candleText.text = CollectablesInPossession.ToString() + "/" + collectablesNeeded.ToString();
+            _uiManager.SetCollectableText(collectablesInPossession, collectablesNeeded);
         }
     }
 }
