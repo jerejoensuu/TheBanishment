@@ -16,6 +16,7 @@ namespace Code.Level
         [SerializeField] private int collectablesNeeded;
 
         [SerializeField] private int collectablesInPossession;
+        [SerializeField] private string nextSceneName;
         public int CollectablesInPossession
         {
             get => collectablesInPossession;
@@ -45,7 +46,12 @@ namespace Code.Level
 
         public void EndLevel()
         {
-            ResetLevel();
+            if (nextSceneName == "")
+            {
+                Debug.LogError("No next scene set");
+                return;
+            }
+            SceneManager.LoadScene(nextSceneName);
         }
 
         private void UpdateUI()

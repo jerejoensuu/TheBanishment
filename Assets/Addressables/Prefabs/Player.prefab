@@ -346,7 +346,7 @@ MonoBehaviour:
   noiseRange: 200
   noisePerSecond: 5
   noiseDecay: 25
-  hidingPlace: []
+  hidingPlace: {fileID: 0}
   isMoving: 0
   enemyIsClose: 0
   enemyIsFar: 0
@@ -449,7 +449,7 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 0.6603774, g: 0.6603774, b: 0.6603774, a: 1}
+  m_Color: {r: 0.6226415, g: 0.5921569, b: 0.5019608, a: 1}
   m_Intensity: 4
   m_Range: 35
   m_SpotAngle: 60
@@ -543,7 +543,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 0.6603774, g: 0.6603774, b: 0.6603774, a: 1}
+  m_Color: {r: 0.6698113, g: 0.6514161, b: 0.5908241, a: 1}
   m_Intensity: 3
   m_Range: 4.5
   m_SpotAngle: 60
@@ -657,6 +657,7 @@ MonoBehaviour:
   crucifixCooldown: 10
   crucifixTime: 5
   crucifixAmount: 1
+  crucifixText: {fileID: 0}
 --- !u!114 &8166539168465542802
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -679,7 +680,7 @@ MonoBehaviour:
   sensitivityVert: 2
   minimumVert: -45
   maximumVert: 45
-  cameraHeight: 0.488
+  cameraHeight: 1.35
   running: 0
   sneaking: 0
 --- !u!114 &5709465566458850013
@@ -917,7 +918,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8166539170221049437}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.488, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
