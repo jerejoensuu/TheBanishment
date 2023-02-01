@@ -60,13 +60,16 @@ namespace Code.Player
             {
                 _viewedObject.DisableHoverEffect();
                 _viewedObject = null;
-                SetLookAtText("");
             }
         }
 
         public void ViewedItemHover()
         {
-            if (_viewedObject == null) return;
+            if (_viewedObject == null)
+            {
+                SetLookAtText("");
+                return;
+            }
             _viewedObject.EnableHoverEffect();
             SetLookAtText(_viewedObject.LookAtText());
         }
