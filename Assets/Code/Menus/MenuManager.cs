@@ -5,23 +5,32 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
-    public static bool gamePaused = false;
+    public static bool gamePaused;
 
     [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private GameObject options;
+    [SerializeField] private GameObject mainMenu;
+
+    private bool optionsEnabled;
 
     private void Awake()
     {
+        optionsEnabled = false;
         gamePaused = false;
         Time.timeScale = 1;
     }
 
     public void PauseGame()
     {
-        gamePaused = !gamePaused;
-
-        if (pauseMenu != null)
+        if (pauseMenu != null && !optionsEnabled)
         {
+            gamePaused = !gamePaused;
             pauseMenu.SetActive(!pauseMenu.activeSelf);
+        }
+
+        if (optionsEnabled)
+        {
+            ToggleOptions();
         }
 
         if (gamePaused)
@@ -56,8 +65,20 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-    public void Options()
+    public void ToggleOptions()
     {
-        // open options menu
+        optionsEnabled = !optionsEnabled;
+        options.SetActive(optionsEnabled);
+
+        if (mainMenu == null && pauseMenu == null) 
+        { 
+            return; 
+        } else if (mainMenu != null && pauseMenu == null)
+        {
+            mainMenu.SetActive(!optionsEnabled);
+        } else 
+        {
+            pauseMenu.SetActive(!optionsEnabled);
+        }
     }
 }
