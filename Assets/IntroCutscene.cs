@@ -48,7 +48,7 @@ public class IntroCutscene : MonoBehaviour
             Color color = pictures[currentPicture].color;
 
             t += fadeSpeed * Time.deltaTime;
-            color.a = Mathf.Lerp(0, 1, t);
+            color.a = Mathf.SmoothStep(0, 1, t);
 
             pictures[currentPicture].color = color;
         }
