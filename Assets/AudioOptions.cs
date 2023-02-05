@@ -50,13 +50,13 @@ public class AudioOptions : MonoBehaviour
 
     private void LoadMusicVolume()
     {
-        musicVolume = PlayerPrefs.GetFloat("musicvolume");
-        musicSlider.value = musicVolume;
+        musicSlider.value = PlayerPrefs.GetFloat("musicvolume", 0.5f);
+        musicVolume = musicSlider.value;
     }
 
     private void LoadSFVolume()
     {
-        soundEffectsVolume = PlayerPrefs.GetFloat("sfvolume");
+        soundEffectsVolume = PlayerPrefs.GetFloat("sfvolume", 0.5f);
         sfSlider.value = soundEffectsVolume;
     }
 

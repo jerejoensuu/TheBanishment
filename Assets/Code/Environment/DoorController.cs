@@ -154,6 +154,7 @@ namespace Code.Environment
 
         private void PlaySound()
         {
+            doorAudioSource.volume = PlayerPrefs.GetFloat("sfvolume");
             doorAudioSource.PlayOneShot(_isDoorOpen ? doorCloseSound : doorOpenSound);
         }
 

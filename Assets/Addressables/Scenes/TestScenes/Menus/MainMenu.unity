@@ -1704,23 +1704,23 @@ PrefabInstance:
       objectReference: {fileID: -2391257588797529281, guid: 132a4577654af744e920d5f4d24aa0ee, type: 2}
     - target: {fileID: 6619131734841997132, guid: 17cc59a1ec56fd44fa55062e1aa976e1, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6619131734841997132, guid: 17cc59a1ec56fd44fa55062e1aa976e1, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6619131735416645127, guid: 17cc59a1ec56fd44fa55062e1aa976e1, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6619131735416645127, guid: 17cc59a1ec56fd44fa55062e1aa976e1, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6619131735416645127, guid: 17cc59a1ec56fd44fa55062e1aa976e1, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6619131735657192916, guid: 17cc59a1ec56fd44fa55062e1aa976e1, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -1832,23 +1832,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6619131735826924906, guid: 17cc59a1ec56fd44fa55062e1aa976e1, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6619131735826924906, guid: 17cc59a1ec56fd44fa55062e1aa976e1, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6619131735852081515, guid: 17cc59a1ec56fd44fa55062e1aa976e1, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6619131735852081515, guid: 17cc59a1ec56fd44fa55062e1aa976e1, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6619131735852081515, guid: 17cc59a1ec56fd44fa55062e1aa976e1, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17cc59a1ec56fd44fa55062e1aa976e1, type: 3}

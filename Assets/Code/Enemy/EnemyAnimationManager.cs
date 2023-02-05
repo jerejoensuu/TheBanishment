@@ -19,7 +19,6 @@ namespace Code.Enemy
             _audio = RuntimeManager.CreateInstance(eventReference);
             _audio.setVolume(PlayerPrefs.GetFloat("sfvolume"));
             RuntimeManager.AttachInstanceToGameObject(_audio, GetComponent<Transform>(), GetComponent<Rigidbody>());
-            _audio.setVolume(0.7f);
             _audio.start();
             _audio.release();
         }

@@ -59,6 +59,7 @@ namespace Code.Level
         {
             maxAmbientVolume = PlayerPrefs.GetFloat("musicvolume");
             maxChaseVolume = PlayerPrefs.GetFloat("musicvolume");
+            
             switch (musicState)
             {
                 case MusicState.Ambient:
