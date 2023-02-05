@@ -11,6 +11,10 @@ namespace Code.Environment
         [SerializeField] private OpeningStyle doorOpeningStyle;
         [SerializeField] private float speed = 1;
         [SerializeField] private GameObject hinge;
+        
+        [SerializeField] private AudioSource doorAudioSource;
+        [SerializeField] private AudioClip doorOpenSound;
+        [SerializeField] private AudioClip doorCloseSound;
 
         private bool _isDoorOpen;
         private bool _stateChangeInProgress;
@@ -90,6 +94,7 @@ namespace Code.Environment
 
             hingeTransform.localEulerAngles = new Vector3(0, targetAngle, 0);
 
+            if (_isDoorOpen) PlaySound();
             _isDoorOpen = !_isDoorOpen;
             if (navObstacle != null) { navObstacle.carving = _isDoorOpen; }
 
@@ -144,6 +149,12 @@ namespace Code.Environment
 
             noiseMaker.noiseMeter += 5;
             ToggleDoor();
+            if (!_isDoorOpen) PlaySound();
+        }
+
+        private void PlaySound()
+        {
+            doorAudioSource.PlayOneShot(_isDoorOpen ? doorCloseSound : doorOpenSound);
         }
 
         public void OnTriggerStay(Collider col)

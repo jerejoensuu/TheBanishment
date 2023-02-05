@@ -409,6 +409,17 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""9e3a0340-11c5-4fd6-97df-3a09f24e553a"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Crucifix"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""4196a6b4-83c1-45d0-8c2e-02bff590abd5"",
                     ""path"": ""<Keyboard>/#(R)"",
                     ""interactions"": """",

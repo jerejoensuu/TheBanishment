@@ -18,6 +18,7 @@ namespace Code.Enemy
         {
             _audio = RuntimeManager.CreateInstance(eventReference);
             RuntimeManager.AttachInstanceToGameObject(_audio, GetComponent<Transform>(), GetComponent<Rigidbody>());
+            _audio.setVolume(0.7f);
             _audio.start();
             _audio.release();
         }

@@ -65,7 +65,7 @@ MonoBehaviour:
   musicState: 0
   ambientSource: {fileID: 6076747785823058074}
   chaseSource: {fileID: 9143887810997049728}
-  maxAmbientVolume: 0.75
+  maxAmbientVolume: 0.5
   maxChaseVolume: 1
 --- !u!82 &6076747785823058074
 AudioSource:

@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Code.Environment
+﻿namespace Code.Environment
 {
     public interface IInteractable
     {
