@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Code.Level;
+using FMOD.Studio;
 
 public class AudioOptions : MonoBehaviour
 {
@@ -14,13 +15,18 @@ public class AudioOptions : MonoBehaviour
 
     [SerializeField] private MusicManager musicManager;
 
-    public void UpdateValues()
+    public void UpdateMusicValue()
     {
-        soundEffectsVolume = sfSlider.value;
         musicVolume = musicSlider.value;
         SaveOptions();
         
         SetMusicManagerVolume();
+    }
+
+    public void UpdateSFValue()
+    {
+        soundEffectsVolume = sfSlider.value;
+        SaveOptions();
     }
 
     private void OnEnable()
