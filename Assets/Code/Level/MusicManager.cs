@@ -10,11 +10,11 @@ namespace Code.Level
         [SerializeField] private AudioSource ambientSource;
         [SerializeField] private AudioSource chaseSource;
 
-        private float ambientVolume = 0.75f;
+        private float ambientVolume;
         private float chaseVolume = 0f;
         
-        [SerializeField] private float maxAmbientVolume = 0.75f;
-        [SerializeField] private float maxChaseVolume = 0.75f;
+        [SerializeField] private float maxAmbientVolume;
+        [SerializeField] private float maxChaseVolume;
 
         public enum MusicState
         {
@@ -24,6 +24,8 @@ namespace Code.Level
         
         private void Start()
         {
+            GetVolumeOptions();
+
             ambientSource.volume = ambientVolume = maxAmbientVolume;
             chaseSource.volume = chaseVolume;
         }
@@ -51,6 +53,23 @@ namespace Code.Level
                 chaseSource.Stop();
             else if (!chaseSource.isPlaying)
                 chaseSource.Play();
+        }
+
+        public void GetVolumeOptions()
+        {
+            maxAmbientVolume = PlayerPrefs.GetFloat("musicvolume");
+            maxChaseVolume = PlayerPrefs.GetFloat("musicvolume");
+            switch (musicState)
+            {
+                case MusicState.Ambient:
+                    ambientVolume = PlayerPrefs.GetFloat("musicvolume");
+                    break;
+                case MusicState.Chase:
+                    chaseVolume = PlayerPrefs.GetFloat("musicvolume");
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }
