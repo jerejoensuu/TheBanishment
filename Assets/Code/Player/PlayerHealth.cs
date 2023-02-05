@@ -13,6 +13,8 @@ public class PlayerHealth : MonoBehaviour
     public float regenDelay = 2f;
     private bool regenEnabled = true;
 
+    [SerializeField] private GameObject deathScreen;
+
     void Update()
     {
         if (!dead && regenEnabled && damageTaken > 0f)
@@ -49,7 +51,8 @@ public class PlayerHealth : MonoBehaviour
         Debug.Log("Dead");
         dead = true;
         
-        // TEMP
-        FindObjectOfType<LevelManager>().ResetLevel();
+        Cursor.lockState = CursorLockMode.None;
+        Time.timeScale = 0;
+        deathScreen.SetActive(true);
     }
 }
