@@ -1037,6 +1037,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 840492852}
   m_CullTransparentMesh: 1
+--- !u!1 &1445595850 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3188348069084473001, guid: 17cc59a1ec56fd44fa55062e1aa976e1, type: 3}
+  m_PrefabInstance: {fileID: 6619131734988215768}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1445989144
 GameObject:
   m_ObjectHideFlags: 0
@@ -1602,6 +1607,8 @@ MonoBehaviour:
   pauseMenu: {fileID: 0}
   options: {fileID: 809358584}
   mainMenu: {fileID: 270397092}
+  startButtonText: {fileID: 1767867588}
+  resetButton: {fileID: 1445595850}
 --- !u!1 &2104719707
 GameObject:
   m_ObjectHideFlags: 0
@@ -1682,6 +1689,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1679855504}
     m_Modifications:
+    - target: {fileID: 2660176872675684372, guid: 17cc59a1ec56fd44fa55062e1aa976e1, type: 3}
+      propertyPath: resetButton
+      value: 
+      objectReference: {fileID: 1445595850}
+    - target: {fileID: 3758799276157459597, guid: 17cc59a1ec56fd44fa55062e1aa976e1, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2055603981}
+    - target: {fileID: 3758799276157459597, guid: 17cc59a1ec56fd44fa55062e1aa976e1, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ClearProgress
+      objectReference: {fileID: 0}
     - target: {fileID: 6619131734401297472, guid: 17cc59a1ec56fd44fa55062e1aa976e1, type: 3}
       propertyPath: m_fontAsset
       value: 

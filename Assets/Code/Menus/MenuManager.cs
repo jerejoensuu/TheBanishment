@@ -10,6 +10,9 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject options;
     [SerializeField] private GameObject mainMenu;
+    
+    [SerializeField] private GameObject startButtonText;
+    [SerializeField] private GameObject resetButton;
 
     private bool optionsEnabled;
 
@@ -18,6 +21,31 @@ public class MenuManager : MonoBehaviour
         optionsEnabled = false;
         gamePaused = false;
         Time.timeScale = 1;
+    }
+
+    private void Start()
+    {
+        SetButtons();
+    }
+
+    private void SetButtons()
+    {
+        if (startButtonText != null)
+        {
+            if (PlayerPrefs.GetInt("levelProgress") > 0)
+            {
+                startButtonText.GetComponent<TMPro.TextMeshProUGUI>().text = "Continue";
+            }
+            else
+            {
+                startButtonText.GetComponent<TMPro.TextMeshProUGUI>().text = "Start game";
+            }
+        }
+
+        if (SceneManager.GetActiveScene().name == "MainMenu" && resetButton != null && PlayerPrefs.GetInt("levelProgress") > 0)
+        {
+            resetButton.SetActive(true);
+        }
     }
 
     public void PauseGame()
@@ -51,7 +79,14 @@ public class MenuManager : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadSceneAsync("MockupLevel", LoadSceneMode.Single);
+        if (PlayerPrefs.GetInt("levelProgress") > 0)
+        {
+            SceneManager.LoadSceneAsync("BasementLevel", LoadSceneMode.Single);
+        }
+        else
+        {
+            SceneManager.LoadSceneAsync("MockupLevel", LoadSceneMode.Single);
+        }
     }
 
     public void QuitGame()
@@ -69,6 +104,7 @@ public class MenuManager : MonoBehaviour
     {
         optionsEnabled = !optionsEnabled;
         options.SetActive(optionsEnabled);
+        SetButtons();
 
         if (mainMenu == null && pauseMenu == null) 
         { 
@@ -80,5 +116,10 @@ public class MenuManager : MonoBehaviour
         {
             pauseMenu.SetActive(!optionsEnabled);
         }
+    }
+
+    public void ClearProgress()
+    {
+        PlayerPrefs.SetInt("levelProgress", 0);
     }
 }
