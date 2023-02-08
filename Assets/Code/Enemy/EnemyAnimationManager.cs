@@ -8,6 +8,7 @@ namespace Code.Enemy
     {
         public EventReference footstep;
         private EventInstance _audio;
+        [SerializeField] private float footstepVolume = 0.3f;
 
         public void PlayFootstepAudio()
         {
@@ -17,7 +18,7 @@ namespace Code.Enemy
         private void PlayAudio(EventReference eventReference)
         {
             _audio = RuntimeManager.CreateInstance(eventReference);
-            _audio.setVolume(PlayerPrefs.GetFloat("sfvolume"));
+            _audio.setVolume(PlayerPrefs.GetFloat("sfvolume") * footstepVolume);
             RuntimeManager.AttachInstanceToGameObject(_audio, GetComponent<Transform>(), GetComponent<Rigidbody>());
             _audio.start();
             _audio.release();

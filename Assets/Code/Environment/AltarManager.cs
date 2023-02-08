@@ -18,7 +18,7 @@ namespace Code.Environment
 
         public bool IsCurrentlyInteractable()
         {
-            return levelManager.WinningConditionsMet && !candles.activeSelf;
+            return levelManager.WinningConditionsMet && !candles.activeSelf && !candles.activeSelf;
         }
 
         public string LookAtText()
@@ -33,6 +33,7 @@ namespace Code.Environment
         public void Interact()
         {
             candles.SetActive(true);
+            levelManager.EndLevel();
         }
     }
 }

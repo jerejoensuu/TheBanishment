@@ -6274,6 +6274,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 885789967}
     - target: {fileID: 6418196418885652476, guid: 23e8272f1c099f744b0b21647f1212bc, type: 3}
+      propertyPath: nextSceneName
+      value: MainMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 6418196418885652476, guid: 23e8272f1c099f744b0b21647f1212bc, type: 3}
       propertyPath: collectablesNeeded
       value: 10
       objectReference: {fileID: 0}
@@ -10697,7 +10701,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ef4735c9f8d157a47ac05c00a5c5c268, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 39.56923
+      value: 35.91
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ef4735c9f8d157a47ac05c00a5c5c268, type: 3}
       propertyPath: m_LocalPosition.y
@@ -13705,7 +13709,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ef4735c9f8d157a47ac05c00a5c5c268, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 36.096924
+      value: 32.437695
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ef4735c9f8d157a47ac05c00a5c5c268, type: 3}
       propertyPath: m_LocalPosition.y
@@ -13936,7 +13940,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ef4735c9f8d157a47ac05c00a5c5c268, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 38.04373
+      value: 34.384502
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ef4735c9f8d157a47ac05c00a5c5c268, type: 3}
       propertyPath: m_LocalPosition.y

@@ -48,6 +48,8 @@ MonoBehaviour:
   outline: {fileID: 2360331047017447773}
   player: {fileID: 0}
   isCrucifix: 1
+  audioSource: {fileID: 0}
+  soundVolume: 0.2
 --- !u!1 &2360331045888109031
 GameObject:
   m_ObjectHideFlags: 0

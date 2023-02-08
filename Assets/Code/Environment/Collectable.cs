@@ -63,6 +63,7 @@ namespace Code.Environment
         public void Interact()
         {
             Collect();
+            _levelManager.player.playerAudio.PlayPickupAudio();
         }
     }
 }

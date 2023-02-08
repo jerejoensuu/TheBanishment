@@ -9,7 +9,7 @@ namespace Code.Level
 {
     public class LevelManager : MonoBehaviour
     {
-        private PlayerController _player;
+        [NonSerialized] public PlayerController player;
         private UIManager _uiManager;
         public bool WinningConditionsMet => CollectablesInPossession >= collectablesNeeded;
 
@@ -28,7 +28,7 @@ namespace Code.Level
 
         private void Start()
         {
-            _player = FindObjectOfType<PlayerController>();
+            player = FindObjectOfType<PlayerController>();
             _uiManager = FindObjectOfType<UIManager>();
             UpdateUI();
         }

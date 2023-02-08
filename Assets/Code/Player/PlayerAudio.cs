@@ -8,6 +8,8 @@ namespace Code.Player
     {
         public EventReference eventReference;
         private EventInstance _audio;
+        [SerializeField] private AudioSource audioSource;
+        [SerializeField] private float pickupVolume = 0.2f;
 
         private void Start()
         {
@@ -15,13 +17,10 @@ namespace Code.Player
             RuntimeManager.AttachInstanceToGameObject(_audio, GetComponent<Transform>(), GetComponent<Rigidbody>());
         }
         
-        public void Test()
+        public void PlayPickupAudio()
         {
-            // Debug.Log("Click");
-            // _audio = RuntimeManager.CreateInstance(eventReference);
-            // RuntimeManager.AttachInstanceToGameObject(_audio, GetComponent<Transform>(), GetComponent<Rigidbody>());
-            // _audio.start();
-            // _audio.release();
+            audioSource.volume = PlayerPrefs.GetFloat("sfvolume") * pickupVolume;
+            audioSource.Play();
         }
     }
 }

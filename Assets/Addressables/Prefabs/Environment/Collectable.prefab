@@ -4859,6 +4859,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outline: {fileID: 3416390404013280581}
+  player: {fileID: 0}
+  isCrucifix: 0
+  audioSource: {fileID: 0}
+  soundVolume: 0.2
 --- !u!1001 &1607170876697949295
 PrefabInstance:
   m_ObjectHideFlags: 0
