@@ -30,7 +30,8 @@ public class EnemyBehaviour : MonoBehaviour
 
     private bool resting;
 
-    [Header("Movement")] public Vector3 lastKnownPlayerPosition;
+    [Header("Movement")]
+    public Vector3 lastKnownPlayerPosition;
 
     [Tooltip("Navigating towards this position")]
     public Vector3 targetDestination;
@@ -42,9 +43,12 @@ public class EnemyBehaviour : MonoBehaviour
     public float alertMoveSpeed;
     public float chaseMoveSpeed;
 
-    [Header("Detection")] private bool playerDetected = false;
-    private float detectionArea = 0.05f; //The width of the sight area. 0 = 180 degrees, 0.5 = 90 degrees
+    [Header("Detection")]
+    
     public float sightRange;
+
+    private bool playerDetected = false;
+    private float detectionArea = 0.05f; //The width of the sight area. 0 = 180 degrees, 0.5 = 90 degrees
 
     [Tooltip("Multiply sight range by n when flashlight is on")]
     public float flashlightSightMultiplier;
@@ -59,14 +63,18 @@ public class EnemyBehaviour : MonoBehaviour
     private float chaseTimeElapsed;
     private bool investigating = false;
 
+    [Header("Attack")]
+    public float attackDamage = 45f;
+
     [Tooltip("Enemy takes a break for n seconds after attacking the player")]
     public float attackCooldown;
 
-    public bool throwAttack = false;
+    private bool throwAttack = false;
     public float throwDuration;
 
-    [Header("Objects")] private MusicManager musicManager;
+    [Header("Objects")]
     public Transform player;
+    private MusicManager musicManager;
     public Transform[] pointsOfInterest;
     private NavMeshAgent agent;
     private NoiseMaker noiseMaker;
@@ -74,6 +82,12 @@ public class EnemyBehaviour : MonoBehaviour
     private PlayerHealth playerHealth;
     public GameObject DestinationIndicator;
     public Animator animator;
+
+    [Header("Hard mode")]
+    public float hardIdleMoveSpeed = 5.5f;
+    public float hardAttackDamage = 70f;
+    public float hardFlashlightSightMultiplier = 3.5f;
+
 
     private void Start()
     {
@@ -87,6 +101,13 @@ public class EnemyBehaviour : MonoBehaviour
         chaseTimeElapsed = chaseDuration;
 
         SetPath(pointsOfInterest[Random.Range(0, pointsOfInterest.Length)].position);
+
+        if (PlayerPrefs.GetInt("levelProgress") > 1)
+        {
+            idleMoveSpeed = hardIdleMoveSpeed;
+            attackDamage = hardAttackDamage;
+            flashlightSightMultiplier = hardFlashlightSightMultiplier;
+        }
     }
 
     private void Update()
@@ -233,7 +254,7 @@ public class EnemyBehaviour : MonoBehaviour
 
                     SetPath(lastKnownPlayerPosition);
                     StartCoroutine(Rest(false, attackCooldown));
-                    playerHealth.TakeDamage(45f);
+                    playerHealth.TakeDamage(attackDamage);
                 }
 
                 break;

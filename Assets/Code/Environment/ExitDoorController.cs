@@ -109,6 +109,14 @@ namespace Code.Environment
         public void Interact()
         {
             OpenDoor();
+            if (PlayerPrefs.GetInt("levelProgress") == 0)
+            {
+                PlayerPrefs.SetInt("levelProgress", 1);
+            }
+            else if (PlayerPrefs.GetInt("levelProgress") == 2)
+            {
+                PlayerPrefs.SetInt("levelProgress", 3);
+            }
             _levelManager.EndLevel();
         }
 
