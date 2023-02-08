@@ -51,7 +51,6 @@ namespace Code.Level
                 Debug.LogError("No next scene set");
                 return;
             }
-            PlayerPrefs.SetInt("levelProgress", 1);
             SceneManager.LoadScene(nextSceneName);
         }
 

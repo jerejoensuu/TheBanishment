@@ -28,23 +28,61 @@ public class MenuManager : MonoBehaviour
         SetButtons();
     }
 
+    private void Update()
+    {
+        // DELETE THIS
+        if( Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            PlayerPrefs.SetInt("levelProgress", 0);
+        }
+        if( Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            PlayerPrefs.SetInt("levelProgress", 1);
+        }
+        if( Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            PlayerPrefs.SetInt("levelProgress", 2);
+        }
+        if( Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            PlayerPrefs.SetInt("levelProgress", 3);
+        }
+    }
+
     private void SetButtons()
     {
         if (startButtonText != null)
         {
-            if (PlayerPrefs.GetInt("levelProgress") > 0)
+            switch (PlayerPrefs.GetInt("levelProgress"))
             {
+                case 0:
+                startButtonText.GetComponent<TMPro.TextMeshProUGUI>().text = "New game";
+                break;
+
+                case 1:
                 startButtonText.GetComponent<TMPro.TextMeshProUGUI>().text = "Continue";
-            }
-            else
-            {
-                startButtonText.GetComponent<TMPro.TextMeshProUGUI>().text = "Start game";
+                break;
+
+                case 2:
+                startButtonText.GetComponent<TMPro.TextMeshProUGUI>().text = "New game +";
+                break;
+
+                case 3:
+                startButtonText.GetComponent<TMPro.TextMeshProUGUI>().text = "Continue +";
+                break;
             }
         }
 
-        if (SceneManager.GetActiveScene().name == "MainMenu" && resetButton != null && PlayerPrefs.GetInt("levelProgress") > 0)
+        if (SceneManager.GetActiveScene().name == "MainMenu" && resetButton != null)
         {
-            resetButton.SetActive(true);
+            if (PlayerPrefs.GetInt("levelProgress") > 0)
+            {
+                resetButton.SetActive(true); 
+            }
+            else
+            {
+                resetButton.SetActive(false);
+            }
         }
     }
 
@@ -79,13 +117,23 @@ public class MenuManager : MonoBehaviour
 
     public void StartGame()
     {
-        if (PlayerPrefs.GetInt("levelProgress") > 0)
+        switch (PlayerPrefs.GetInt("levelProgress"))
         {
-            SceneManager.LoadSceneAsync("BasementLevel", LoadSceneMode.Single);
-        }
-        else
-        {
+            case 0:
             SceneManager.LoadSceneAsync("MockupLevel", LoadSceneMode.Single);
+            break;
+
+            case 1:
+            SceneManager.LoadSceneAsync("BasementLevel", LoadSceneMode.Single);
+            break;
+
+            case 2:
+            SceneManager.LoadSceneAsync("MockupLevel", LoadSceneMode.Single);
+            break;
+
+            case 3:
+            SceneManager.LoadSceneAsync("BasementLevel", LoadSceneMode.Single);
+            break;
         }
     }
 
@@ -102,9 +150,9 @@ public class MenuManager : MonoBehaviour
 
     public void ToggleOptions()
     {
+        SetButtons();
         optionsEnabled = !optionsEnabled;
         options.SetActive(optionsEnabled);
-        SetButtons();
 
         if (mainMenu == null && pauseMenu == null) 
         { 
