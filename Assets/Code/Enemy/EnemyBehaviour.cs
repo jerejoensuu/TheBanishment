@@ -172,8 +172,8 @@ public class EnemyBehaviour : MonoBehaviour
             }
         }
 
-        if (agent.hasPath && ((agent.remainingDistance <= 2f && !throwAttack) ||
-                              (agent.remainingDistance <= 0.5f && throwAttack)))
+        if (agent.hasPath && ((agent.remainingDistance <= 3f && !throwAttack) ||
+                              (agent.remainingDistance <= 0.75f && throwAttack)))
         {
             TargetReached();
         }
