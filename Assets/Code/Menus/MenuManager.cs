@@ -32,7 +32,7 @@ public class MenuManager : MonoBehaviour
     {
         if (startButtonText != null)
         {
-            switch (PlayerPrefs.GetInt("levelProgress"))
+            switch (PlayerPrefs.GetInt("levelProgress", 0))
             {
                 case 0:
                 startButtonText.GetComponent<TMPro.TextMeshProUGUI>().text = "New game";
@@ -96,7 +96,7 @@ public class MenuManager : MonoBehaviour
 
     public void StartGame()
     {
-        switch (PlayerPrefs.GetInt("levelProgress"))
+        switch (PlayerPrefs.GetInt("levelProgress", 0))
         {
             case 0:
             SceneManager.LoadSceneAsync("MockupLevel", LoadSceneMode.Single);
