@@ -33,6 +33,14 @@ namespace Code.Environment
         public void Interact()
         {
             candles.SetActive(true);
+            if (PlayerPrefs.GetInt("levelProgress") == 1)
+            {
+                PlayerPrefs.SetInt("levelProgress", 2);
+            }
+            else if (PlayerPrefs.GetInt("levelProgress") == 3)
+            {
+                PlayerPrefs.SetInt("levelProgress", 2);
+            }
             levelManager.EndLevel();
         }
     }
