@@ -28,27 +28,6 @@ public class MenuManager : MonoBehaviour
         SetButtons();
     }
 
-    private void Update()
-    {
-        // DELETE THIS
-        if( Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            PlayerPrefs.SetInt("levelProgress", 0);
-        }
-        if( Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            PlayerPrefs.SetInt("levelProgress", 1);
-        }
-        if( Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            PlayerPrefs.SetInt("levelProgress", 2);
-        }
-        if( Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            PlayerPrefs.SetInt("levelProgress", 3);
-        }
-    }
-
     private void SetButtons()
     {
         if (startButtonText != null)
