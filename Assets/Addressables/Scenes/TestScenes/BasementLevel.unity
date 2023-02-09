@@ -6873,7 +6873,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6213423401192496246, guid: baf896f95a5bead448c2f8db1f762866, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6213423401192496246, guid: baf896f95a5bead448c2f8db1f762866, type: 3}
       propertyPath: m_AnchorMax.x
@@ -9927,7 +9927,7 @@ PrefabInstance:
     - target: {fileID: 4879883130492977171, guid: 427c25991c1f37041954b1cfa967ad12, type: 3}
       propertyPath: deathScreen
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2663704095910033380}
     - target: {fileID: 6595551177337338761, guid: 427c25991c1f37041954b1cfa967ad12, type: 3}
       propertyPath: enemy
       value: 
@@ -16425,7 +16425,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2663704097286139987, guid: 8dbb43bd8df740441bd923a32c2e06e9, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2663704097286139987, guid: 8dbb43bd8df740441bd923a32c2e06e9, type: 3}
       propertyPath: m_AnchorMax.x
@@ -16501,6 +16501,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8dbb43bd8df740441bd923a32c2e06e9, type: 3}
+--- !u!1 &2663704095910033380 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2663704097286139980, guid: 8dbb43bd8df740441bd923a32c2e06e9, type: 3}
+  m_PrefabInstance: {fileID: 2663704095910033379}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8380478625260346196
 PrefabInstance:
   m_ObjectHideFlags: 0
