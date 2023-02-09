@@ -190,6 +190,7 @@ public class EnemyBehaviour : MonoBehaviour
             agent.speed = 0f;
         }
         else
+        {
             switch (state)
             {
                 case 0:
@@ -204,6 +205,8 @@ public class EnemyBehaviour : MonoBehaviour
                     agent.speed = chaseMoveSpeed;
                     break;
             }
+        }
+        animator.SetFloat("moveSpeed", agent.speed / 2);
     }
 
     private void TargetReached()
@@ -253,7 +256,10 @@ public class EnemyBehaviour : MonoBehaviour
                     }
 
                     SetPath(lastKnownPlayerPosition);
+
                     StartCoroutine(Rest(false, attackCooldown));
+                    
+                    animator.SetTrigger("attack");
                     playerHealth.TakeDamage(attackDamage);
                 }
 
