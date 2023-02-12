@@ -230,7 +230,7 @@ MonoBehaviour:
   picture3: {fileID: 1377155020}
   fade: {fileID: 219945087}
   fadeTime: 5
-  fadeSpeed: 0.2
+  fadeSpeed: 0.1
 --- !u!4 &599958714
 Transform:
   m_ObjectHideFlags: 0

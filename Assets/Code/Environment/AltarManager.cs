@@ -1,6 +1,7 @@
 using System;
 using Code.Level;
 using UnityEngine;
+using Code.UI;
 
 namespace Code.Environment
 {
@@ -10,6 +11,8 @@ namespace Code.Environment
         [SerializeField] private GameObject candles;
         // [SerializeField] private int candlesNeeded;
         // [SerializeField] private int candlesPlaced;
+
+        [SerializeField] private GameObject victoryScreen;
 
         private void Start()
         {
@@ -41,7 +44,8 @@ namespace Code.Environment
             {
                 PlayerPrefs.SetInt("levelProgress", 2);
             }
-            levelManager.EndLevel();
+            //levelManager.EndLevel();
+            victoryScreen.SetActive(true);
         }
     }
 }
