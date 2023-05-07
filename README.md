@@ -1,6 +1,6 @@
 <br /> 
-<h1 align="center">Procedural Animation</h1> 
-<h4 align="center">A procedurally animated spider in unity using inverse kinematics.</h4> 
+<h1 align="center">The Banishment</h1> 
+<h4 align="center">A short horror game experience.</h4> 
 <br /> 
  
 ## Description 
