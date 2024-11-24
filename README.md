@@ -5,14 +5,6 @@
  
 ## Description 
 Collect candles while avoiding the monsters to banish it and complete the game. 
-
-<details>
-<summary> Summary for portfolio </summary>
-  
-  - School project
-  - Responsible for most (player movement, environment interactions, level system, etc)
-    
-</details> 
  
 ## Demonstration gifs 
 <p align="center"> 
